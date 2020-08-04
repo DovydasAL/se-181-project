@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HelpPanel extends JPanel {
-    public static Dimension initialDimensions = new Dimension(500, 500);
+    public static final Dimension initialDimensions = new Dimension(500, 500);
 
     public HelpPanel() {
         this.setLayout(new BorderLayout());

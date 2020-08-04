@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
 
-    public static Dimension initialDimensions = new Dimension(850, 520);
+    public static final Dimension initialDimensions = new Dimension(850, 520);
     private GridBagConstraints constraints;
 
     private GameBoardPanel gameBoardPanel;

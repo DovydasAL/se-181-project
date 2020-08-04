@@ -16,7 +16,7 @@ public class GameInfoPanel extends JPanel {
     private JButton resign;
     private JButton help;
 
-    private Dimension initialDimensions = new Dimension(370, 520);
+    private static final Dimension initialDimensions = new Dimension(370, 520);
 
     private GridBagConstraints constraints;
 

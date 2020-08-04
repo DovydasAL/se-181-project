@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class ConnectPanel extends JPanel {
 
-    public static Dimension initialDimensions = new Dimension(400, 150);
+    public static final Dimension initialDimensions = new Dimension(400, 150);
 
     private GridBagConstraints constraints;
     private JLabel titleLabel;

@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b742d1af-788a-4562-be61-9b60dfeb7be7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/se181/gui/listeners/HelpButtonListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/se181/gui/panels/HelpPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/gui/panels/ConnectPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/gui/panels/ConnectPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/se181/gui/panels/GameInfoPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/gui/panels/GameInfoPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/gui/panels/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/gui/panels/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/gui/panels/HelpPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/gui/panels/HelpPanel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/ConnectPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-end-line="26" />
+            <state relative-caret-position="-102">
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GamePanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="7" column="24" selection-start-line="7" selection-end-line="8" />
+              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -70,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GameInfoPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="63" column="57" selection-start-line="63" selection-start-column="57" selection-end-line="63" selection-end-column="57" />
+            <state relative-caret-position="204">
+              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -91,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/HelpPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="117" selection-start-line="15" selection-start-column="117" selection-end-line="15" selection-end-column="117" />
+            <state relative-caret-position="357">
+              <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="16" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
+            <state relative-caret-position="299">
+              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -118,20 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/se181/gui/listeners/BoardTileListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="59" lean-forward="true" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/se181/gui/components/TileButton.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+            <state relative-caret-position="170">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -158,15 +147,15 @@
         <option value="$PROJECT_DIR$/src/com/se181/gui/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/ConnectPanel.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/MainForm.java" />
-        <option value="$PROJECT_DIR$/src/com/se181/gui/panels/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/listeners/ConnectButtonListener.java" />
-        <option value="$PROJECT_DIR$/src/com/se181/gui/panels/ConnectPanel.java" />
-        <option value="$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/listeners/BoardTileListener.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/components/TileButton.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/listeners/HelpButtonListener.java" />
+        <option value="$PROJECT_DIR$/src/com/se181/gui/panels/ConnectPanel.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/panels/GameInfoPanel.java" />
+        <option value="$PROJECT_DIR$/src/com/se181/gui/panels/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/com/se181/gui/panels/HelpPanel.java" />
+        <option value="$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java" />
       </list>
     </option>
   </component>
@@ -278,18 +267,18 @@
       <option name="presentableId" value="Default" />
       <updated>1596512455680</updated>
       <workItem from="1596512458940" duration="662000" />
-      <workItem from="1596547672014" duration="8232000" />
+      <workItem from="1596547672014" duration="11580000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8894000" />
+    <option name="totallyTimeSpent" value="12242000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18976545" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18976545" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -299,7 +288,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -308,7 +297,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -384,30 +373,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/MainForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" selection-start-line="20" selection-end-line="25" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/ConnectPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/listeners/BoardTileListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="59" lean-forward="true" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="16" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
+        <state relative-caret-position="-102">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -424,26 +406,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/MainForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" selection-start-line="20" selection-end-line="25" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GameInfoPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="63" column="57" selection-start-line="63" selection-start-column="57" selection-end-line="63" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/se181/gui/listeners/HelpButtonListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -454,10 +416,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/listeners/BoardTileListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GamePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="7" column="24" selection-start-line="7" selection-end-line="8" />
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GameInfoPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -466,8 +448,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/HelpPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="117" selection-start-line="15" selection-start-column="117" selection-end-line="15" selection-end-column="117" />
+        <state relative-caret-position="357">
+          <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/se181/gui/panels/GameBoardPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

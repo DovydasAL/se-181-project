@@ -9,16 +9,15 @@ import java.awt.*;
 public class GameBoardPanel extends JPanel {
 
     private Image boardImage = new ImageIcon("resources/game_images/board.png").getImage();
-    private Dimension initialDimensions = new Dimension(480, 520);
+    private static final Dimension initialDimensions = new Dimension(480, 520);
 
-    private static int pieceSize = 60;
-    private static int boardSize = 8;
+    private static final int pieceSize = 60;
+    private static final int boardSize = 8;
 
     public GameBoardPanel() {
         super();
         this.setPreferredSize(initialDimensions);
         this.setLayout(new GridLayout(boardSize, boardSize));
-        Insets insets = new Insets(0, 20, 0, 0);
         // Add buttons with listeners for piece selection
         for (int i=0;i<boardSize;i++) {
             for (int j=0;j<boardSize;j++) {
