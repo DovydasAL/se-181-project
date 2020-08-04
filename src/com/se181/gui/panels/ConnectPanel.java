@@ -59,7 +59,6 @@ public class ConnectPanel extends JPanel {
         constraints.gridy = 4;
         connectButton = new JButton("Connect");
         connectButton.addActionListener(new ConnectButtonListener());
-        connectButton.setActionCommand("connect");
         this.add(connectButton, constraints);
 
         constraints.gridx = 0;
