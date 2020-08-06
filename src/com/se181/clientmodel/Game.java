@@ -39,10 +39,12 @@ public class Game {
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
                 piece.position.row = clickedTile.row;
                 piece.position.col = clickedTile.col;
+                lastClickedTile = null;
+                MainForm.mainForm.gamePanel.repaint();
+                return;
             }
         }
-        lastClickedTile = null;
-        MainForm.mainForm.gamePanel.repaint();
+        lastClickedTile = clickedTile;
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
