@@ -1,5 +1,6 @@
 package com.se181.gui;
 
+import com.se181.clientmodel.Game;
 import com.se181.gui.panels.ConnectPanel;
 import com.se181.gui.panels.GamePanel;
 
@@ -11,6 +12,8 @@ public class MainForm extends JFrame {
     public ConnectPanel connectPanel;
     public GamePanel gamePanel;
 
+    public static Game game;
+
     public MainForm(String name) {
         super(name);
         this.connectPanel = new ConnectPanel();
@@ -18,7 +21,7 @@ public class MainForm extends JFrame {
     }
 
     public static void main(String[] args) {
-        mainForm =  new MainForm("ChessOnAir");
+        mainForm = new MainForm("ChessOnAir");
         mainForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainForm.setResizable(false);
         mainForm.setPreferredSize(ConnectPanel.initialDimensions);
@@ -32,5 +35,9 @@ public class MainForm extends JFrame {
         this.add(gamePanel);
         this.setPreferredSize(GamePanel.initialDimensions);
         this.pack();
+    }
+
+    public void repaintGame() {
+        this.gamePanel.repaint();
     }
 }
