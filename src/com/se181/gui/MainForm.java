@@ -37,7 +37,4 @@ public class MainForm extends JFrame {
         this.pack();
     }
 
-    public void repaintGame() {
-        this.gamePanel.repaint();
-    }
 }

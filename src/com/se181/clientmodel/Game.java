@@ -23,6 +23,7 @@ public class Game {
     public void makeMove(Square clickedTile) {
         if (lastClickedTile == null) {
             lastClickedTile = clickedTile;
+            MainForm.mainForm.gamePanel.repaint();
             return;
         }
 
@@ -44,19 +45,19 @@ public class Game {
                 return;
             }
         }
+        MainForm.mainForm.gamePanel.repaint();
         lastClickedTile = clickedTile;
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
 
-        return true;
         // TODO: Uncomment when valid pieces is defined
-//        List<Square> validMoves = piece.validMoves();
-//        for (int i=0;i<validMoves.size();i++) {
-//            if (validMoves.get(i).row == dst.row && validMoves.get(i).col == dst.col) {
-//                return true;
-//            }
-//        }
-//        return false;
+        List<Square> validMoves = piece.validMoves(this.board);
+        for (int i=0;i<validMoves.size();i++) {
+            if (validMoves.get(i).row == dst.row && validMoves.get(i).col == dst.col) {
+                return true;
+            }
+        }
+        return false;
     }
 }
