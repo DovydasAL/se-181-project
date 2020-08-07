@@ -7,6 +7,7 @@ import com.se181.gui.listeners.BoardTileListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
 import static com.se181.clientmodel.PieceColor.WHITE;
@@ -14,6 +15,7 @@ import static com.se181.clientmodel.PieceColor.WHITE;
 public class GameBoardPanel extends JPanel {
 
     private Image boardImage = new ImageIcon("resources/game_images/board.png").getImage();
+    private Image highlightedMove = new ImageIcon("resources/game_images/highlighted_move.png").getImage();
 
     private static final Dimension initialDimensions = new Dimension(480, 520);
 
@@ -52,6 +54,8 @@ public class GameBoardPanel extends JPanel {
                 drawPiece(piece, g);
             }
         }
+
+        drawPossibleMoves(g);
     }
 
     public void drawPiece(Object piece, Graphics g) {
@@ -85,6 +89,17 @@ public class GameBoardPanel extends JPanel {
         }
         Image image = new ImageIcon("resources/game_images/" + pieceString + "_" + colorString + ".png").getImage();
         g.drawImage(image, castedPiece.position.col * 60 , castedPiece.position.row * 60, null);
+    }
 
+    public void drawPossibleMoves(Graphics g) {
+        if (MainForm.game.lastClickedTile != null && MainForm.game.board.containsPieceAt(MainForm.game.lastClickedTile) == MainForm.game.player.color) {
+            ChessPiece piece = MainForm.game.board.getPieceAt(MainForm.game.lastClickedTile, MainForm.game.player.color);
+            if (piece != null) {
+                List<Square> validMoves = piece.validMoves(MainForm.game.board);
+                for (int i=0;i<validMoves.size();i++) {
+                    g.drawImage(highlightedMove, validMoves.get(i).col * 60, validMoves.get(i).row * 60, null);
+                }
+            }
+        }
     }
 }
