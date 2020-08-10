@@ -20,6 +20,10 @@ public class Game {
         opponent = new Player(BLACK, "test2");
     }
 
+    // TODO: make function strictly for client, and one directly for the actual movement of pieces
+
+    // TODO: add check if move captures an enemy piece
+
     public void makeMove(Square clickedTile) {
         if (lastClickedTile == null) {
             lastClickedTile = clickedTile;

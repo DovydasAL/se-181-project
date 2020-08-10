@@ -19,6 +19,9 @@ public class King extends ChessPiece {
                 }
             }
         }
+
+        // TODO: add castling
+
         return validMoves;
     }
 }

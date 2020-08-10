@@ -14,6 +14,8 @@ public class Board {
         blackSet = new PieceSet(BLACK);
     }
 
+    // TODO: Combine these functions
+
     public PieceColor containsPieceAt(Square position) {
         for (int i=0;i<whiteSet.pieces.size();i++) {
             Square piecePosition = whiteSet.pieces.get(i).position;

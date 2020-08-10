@@ -8,6 +8,7 @@ public abstract class ChessPiece {
     public PieceColor color;
     public Square position;
     public boolean Captured;
+    // TODO: figure out how to filter out moves that put king into check
     public abstract List<Square> validMoves(Board board);
 
     public ChessPiece() {}
@@ -34,5 +35,6 @@ public abstract class ChessPiece {
             moves.add(position);
             return false;
         }
+        // TODO: check if move puts king into check
     }
 }
