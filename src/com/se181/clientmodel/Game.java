@@ -42,9 +42,17 @@ public class Game {
 
         for (int i=0;i<pieceSet.pieces.size();i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
+
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
+
                 if (piece instanceof King) {
+                    System.out.println("here");
+
                     List<Square> opponentMoves = calculateAllPossibleMove();
+                    System.out.println(opponentMoves.get(0).row);
+                    System.out.println((opponentMoves.get(0).col));
+                    System.out.println(clickedTile.row);
+                    System.out.println(clickedTile.col);
                     if (opponentMoves.contains(clickedTile)) {
                         System.out.println("In check");
                         return;
@@ -76,11 +84,6 @@ public class Game {
             allValidMoves.addAll(validMoves);
         }
         return allValidMoves;
-//        for (int i = 0; i < board.whiteSet.pieces.size(); i++) {
-//            ChessPiece piece = board.whiteSet.pieces.get(i);
-//            List<Square> validMoves = piece.validMoves(this.board);
-//            allValidMoves.add(validMoves);
-//        }
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
