@@ -1,34 +1,152 @@
 package com.se181.clientmodel;
 
 import com.se181.gui.MainForm;
-import com.sun.tools.javac.Main;
+import com.se181.datamodel.*;
+import com.se181.clientmodel.*;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
 import static com.se181.clientmodel.PieceColor.WHITE;
 
 public class Game {
+    public String serverIP;
     public Board board;
     public Square lastClickedTile;
     public Player player;
     public Player opponent;
+    public Boolean playersTurn;
+    public ArrayList<Square> moveHistory;
+    public Boolean restart;
 
-    public Game() {
+    public Socket socket;
+    public ObjectOutputStream outStream;
+    public ObjectInputStream inStream;
+
+    //Default constructor
+    public Game() throws Exception{
+        serverIP = "";
         board = new Board();
+        lastClickedTile = new Square(0, 0);
         player = new Player(WHITE, "test1");
         opponent = new Player(BLACK, "test2");
+        playersTurn = false;
+        moveHistory = new ArrayList<Square>();
+        restart = false;
+
+        socket = new Socket("127.0.0.1", 8008);
+        inStream = new ObjectInputStream(socket.getInputStream());
+        outStream = new ObjectOutputStream(socket.getOutputStream());
     }
+
+    //Parameterized constructor
+    public Game(String serverIP, Board board, Square lastClickedTile, Player player, Player opponent, Boolean playersTurn, ArrayList<Square> moveHistory, Boolean restart) throws Exception{
+        this.serverIP = serverIP;
+        this.board = board;
+        this.lastClickedTile = lastClickedTile;
+        this.player = player;
+        this.opponent = opponent;
+        this.playersTurn = playersTurn;
+        this.moveHistory = moveHistory;
+        this.restart = restart;
+
+        socket = new Socket("127.0.0.1", 8008);
+        inStream = new ObjectInputStream(socket.getInputStream());
+        outStream = new ObjectOutputStream(socket.getOutputStream());
+    }
+
+    public connectionResponse connectToServer() throws IOException, ClassNotFoundException {
+        connectionRequest cReq = new connectionRequest(player.nickname);
+        connectionResponse cRes = new connectionResponse();
+        try {
+            outStream.writeObject(cReq);
+        } catch(IOException ex) {
+            System.out.println("Failed to write connectionRequest.");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        try {
+            cRes = (connectionResponse)inStream.readObject();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Failed to read connectionResponse.");
+            ex.printStackTrace();
+        }
+        return cRes;
+    }
+
+    public readyResponse startGame() throws IOException, ClassNotFoundException {
+        readyRequest rReq = new readyRequest(true);
+        readyResponse rRes = new readyResponse();
+        try {
+            outStream.writeObject(rReq);
+        } catch(IOException ex) {
+            System.out.println("Failed to write readyRequest.");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        try {
+            rRes = (readyResponse) inStream.readObject();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Failed to read readyResponse");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        return rRes;
+    }
+
+    public void restartGame() throws IOException, ClassNotFoundException {
+        readyRequest rReq = new readyRequest(!restart);
+        readyResponse rRes = new readyResponse();
+        try {
+            outStream.writeObject(rReq);
+        } catch(IOException ex) {
+            System.out.println("Failed to write readyRequest.");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    // TODO: really need startNewGame()
+
+    public gamePlay quitGame() throws IOException, ClassNotFoundException {
+        gamePlay gReq = new gamePlay(new Board(), opponent.nickname, opponent.nickname);
+        try {
+            outStream.writeObject(gReq);
+        } catch(IOException ex) {
+            System.out.println("Failed to write gamePlay");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        return gReq;
+    }
+
+    public gamePlay waitForOpponent() throws IOException, ClassNotFoundException {
+        gamePlay gRes = new gamePlay();
+        try {
+            gRes = (gamePlay) inStream.readObject();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Failed to read gamePlay");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        return gRes;
+    }
+
 
     // TODO: make function strictly for client, and one directly for the actual movement of pieces
 
     // TODO: add check if move captures an enemy piece
 
-    public void makeMove(Square clickedTile) {
+    public gamePlay makeMove(Square clickedTile) throws IOException, ClassNotFoundException {
         if (lastClickedTile == null) {
             lastClickedTile = clickedTile;
             MainForm.mainForm.gamePanel.repaint();
-            return;
+            return new gamePlay(this.board, "", player.nickname);
         }
 
         PieceSet pieceSet = null;
@@ -46,11 +164,23 @@ public class Game {
                 piece.position.col = clickedTile.col;
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
-                return;
             }
         }
         MainForm.mainForm.gamePanel.repaint();
         lastClickedTile = clickedTile;
+        moveHistory.add(clickedTile);
+
+        // TODO: check winning conditions?
+        gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
+        try {
+            outStream.writeObject(gReq);
+        } catch(IOException ex) {
+            System.out.println("Failed to write gamePlay");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+
+        return waitForOpponent();
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
@@ -63,5 +193,17 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public Square getLastClickedTile() {
+        return lastClickedTile;
+    }
+
+    public void setLastClickedTile(Square lastClickedTile) {
+        this.lastClickedTile = lastClickedTile;
+    }
+
+    public ArrayList<Square> getMoveHistory() {
+        return moveHistory;
     }
 }

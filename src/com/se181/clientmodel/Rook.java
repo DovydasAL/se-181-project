@@ -1,11 +1,12 @@
 package com.se181.clientmodel;
 
-import com.se181.gui.MainForm;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends ChessPiece {
+public class Rook extends ChessPiece implements Serializable {
+
+    private static long serialVersionUID = 1L;
 
     public Rook(PieceColor color, Square position) {
         super(color, position);
