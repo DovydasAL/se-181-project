@@ -3,6 +3,7 @@ package com.se181.clientmodel;
 import com.se181.gui.MainForm;
 import com.sun.tools.javac.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
@@ -38,10 +39,25 @@ public class Game {
         else if (player.color == BLACK) {
             pieceSet = board.blackSet;
         }
-
+        Board flippedBoard = this.board.flipBoard();
         for (int i=0;i<pieceSet.pieces.size();i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
+                if (piece instanceof King) {
+                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleAttackMove(this.opponent.color);
+                    System.out.println(opponentMoves.get(0).row);
+                    System.out.println(opponentMoves.get(0).col);
+
+                    if (opponentMoves.contains(clickedTile)) {
+                        System.out.println("In check");
+                        return;
+                    }
+                }
+                PieceColor color =  board.containsPieceAt(clickedTile);
+                if (color != null) {
+                    ChessPiece opponent = board.getPieceAt(clickedTile, color);
+                    opponent.Captured = true;
+                }
                 piece.position.row = clickedTile.row;
                 piece.position.col = clickedTile.col;
                 lastClickedTile = null;

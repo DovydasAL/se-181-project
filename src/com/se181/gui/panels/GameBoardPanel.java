@@ -25,8 +25,8 @@ public class GameBoardPanel extends JPanel {
     public GameBoardPanel() {
         super();
         this.setPreferredSize(initialDimensions);
-        this.setLayout(new GridLayout(boardSize, boardSize));
         // Add buttons with listeners for piece selection
+        this.setLayout(new GridLayout(boardSize, boardSize));
         for (int i=0;i<boardSize;i++) {
             for (int j=0;j<boardSize;j++) {
                 JButton button = new TileButton(i, j);
@@ -92,6 +92,7 @@ public class GameBoardPanel extends JPanel {
     }
 
     public void drawPossibleMoves(Graphics g) {
+        System.out.println(MainForm.game.player.color);
         if (MainForm.game.lastClickedTile != null && MainForm.game.board.containsPieceAt(MainForm.game.lastClickedTile) == MainForm.game.player.color) {
             ChessPiece piece = MainForm.game.board.getPieceAt(MainForm.game.lastClickedTile, MainForm.game.player.color);
             if (piece != null) {
