@@ -39,20 +39,12 @@ public class Game {
         else if (player.color == BLACK) {
             pieceSet = board.blackSet;
         }
-
+        Board flippedBoard = this.board.flipBoard();
         for (int i=0;i<pieceSet.pieces.size();i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
-
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
-
                 if (piece instanceof King) {
-                    System.out.println("here");
-
-                    List<Square> opponentMoves = calculateAllPossibleMove();
-                    System.out.println(opponentMoves.get(0).row);
-                    System.out.println((opponentMoves.get(0).col));
-                    System.out.println(clickedTile.row);
-                    System.out.println(clickedTile.col);
+                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleMove(this.opponent.color);
                     if (opponentMoves.contains(clickedTile)) {
                         System.out.println("In check");
                         return;
@@ -72,18 +64,6 @@ public class Game {
         }
         MainForm.mainForm.gamePanel.repaint();
         lastClickedTile = clickedTile;
-    }
-
-
-    public List<Square>calculateAllPossibleMove(){
-        List<Square> allValidMoves = new ArrayList<>();
-
-        for (int i = 0; i < board.whiteSet.pieces.size(); i++) {
-            ChessPiece piece = board.blackSet.pieces.get(i);
-            List<Square> validMoves = piece.validMoves(this.board);
-            allValidMoves.addAll(validMoves);
-        }
-        return allValidMoves;
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
