@@ -14,7 +14,7 @@ public class TileButton extends JButton {
         this.col = col;
         this.setOpaque(false);
         this.setContentAreaFilled(false);
-        this.setBorderPainted(true);
+        this.setBorderPainted(false);
         this.addActionListener(new BoardTileListener());
     }
 }

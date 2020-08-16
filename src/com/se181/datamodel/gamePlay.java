@@ -1,6 +1,10 @@
 package com.se181.datamodel;
 
-public class gamePlay {
+import com.se181.clientmodel.Board;
+
+import java.io.Serializable;
+
+public class gamePlay implements Serializable {
 
     public Board chessBoard;
     // "" : continue the game ; nickName1/nickName2 : player1/player2 has won

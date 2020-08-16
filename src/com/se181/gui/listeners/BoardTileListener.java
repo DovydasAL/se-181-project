@@ -13,6 +13,12 @@ public class BoardTileListener implements ActionListener {
         TileButton button = (TileButton) event.getSource();
         // TODO: Remove this print, used for debugging
         System.out.println("Clicked Piece at: " + button.row + ", " + button.col);
-        MainForm.game.makeMove(new Square(button.row, button.col));
+        try {
+            MainForm.game.makeMove(new Square(button.row, button.col));
+        } catch (Exception ex) {
+            System.out.println("Failed to make a move");
+            ex.printStackTrace();
+            System.exit(1);
+        }
     }
 }

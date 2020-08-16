@@ -2,11 +2,11 @@ package com.se181.clientmodel;
 
 import com.se181.gui.MainForm;
 import com.se181.datamodel.*;
-import com.se181.clientmodel.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 import static com.se181.clientmodel.PieceColor.BLACK;
 import static com.se181.clientmodel.PieceColor.WHITE;
 
-public class Game {
+public class Game implements Serializable {
     public String serverIP;
     public Board board;
     public Square lastClickedTile;
@@ -28,6 +28,8 @@ public class Game {
     public ObjectOutputStream outStream;
     public ObjectInputStream inStream;
 
+    private static long serialVersionUID = 1L;
+
     //Default constructor
     public Game() throws Exception{
         serverIP = "";
@@ -38,10 +40,10 @@ public class Game {
         playersTurn = false;
         moveHistory = new ArrayList<Square>();
         restart = false;
-
-        socket = new Socket("127.0.0.1", 8008);
-        inStream = new ObjectInputStream(socket.getInputStream());
+        socket = new Socket("localhost", 8080);
         outStream = new ObjectOutputStream(socket.getOutputStream());
+        outStream.flush();
+        inStream = new ObjectInputStream(socket.getInputStream());
     }
 
     //Parameterized constructor
@@ -54,10 +56,11 @@ public class Game {
         this.playersTurn = playersTurn;
         this.moveHistory = moveHistory;
         this.restart = restart;
+        this.socket = new Socket("localhost", 8080);
+        this.outStream = new ObjectOutputStream(socket.getOutputStream());
+        this.outStream.flush();
+        this.inStream = new ObjectInputStream(socket.getInputStream());
 
-        socket = new Socket("127.0.0.1", 8008);
-        inStream = new ObjectInputStream(socket.getInputStream());
-        outStream = new ObjectOutputStream(socket.getOutputStream());
     }
 
     public connectionResponse connectToServer() throws IOException, ClassNotFoundException {

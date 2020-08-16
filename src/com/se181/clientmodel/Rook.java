@@ -1,5 +1,7 @@
 package com.se181.clientmodel;
 
+import com.se181.gui.MainForm;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

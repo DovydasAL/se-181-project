@@ -1,7 +1,7 @@
 package com.se181.clientmodel;
 
-import com.se181.clientmodel.*;
 import java.io.Serializable;
+import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
 import static com.se181.clientmodel.PieceColor.WHITE;

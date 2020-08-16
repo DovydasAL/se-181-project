@@ -6,8 +6,9 @@ import java.util.concurrent.Executors;
 
 public class Server {
     public static void main(String[] args) throws Exception{
-        try(var listener = new ServerSocket(8008)){
-            System.out.println("Server is running on port 8008");
+        try{
+            ServerSocket listener = new ServerSocket(8080);
+            System.out.println("Server is running on port 8080");
             var pool = Executors.newFixedThreadPool(2);
             while (true){
                 pool.execute(new ServerThread(listener.accept()));
