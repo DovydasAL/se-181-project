@@ -50,7 +50,7 @@ public class Board {
     }
 
 
-    public List<Square>calculateAllPossibleMove(PieceColor color){
+    public List<Square>calculateAllPossibleAttackMove(PieceColor color){
         List<Square> allValidMoves = new ArrayList<>();
         PieceSet pieceSet;
         if (color == WHITE)
@@ -59,8 +59,14 @@ public class Board {
             pieceSet = this.blackSet;
         for (int i = 0; i < pieceSet.pieces.size(); i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
-            List<Square> validMoves = piece.validMoves(this);
-            allValidMoves.addAll(validMoves);
+            if (piece instanceof Pawn) {
+                List<Square> validMoves = ((Pawn) piece).validAttackMoves(this);
+                allValidMoves.addAll(validMoves);
+            }
+            else {
+                List<Square> validMoves = piece.validMoves(this);
+                allValidMoves.addAll(validMoves);
+            }
         }
         return allValidMoves;
 //        for (int i = 0; i < board.whiteSet.pieces.size(); i++) {

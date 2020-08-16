@@ -44,7 +44,10 @@ public class Game {
             ChessPiece piece = pieceSet.pieces.get(i);
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
                 if (piece instanceof King) {
-                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleMove(this.opponent.color);
+                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleAttackMove(this.opponent.color);
+                    System.out.println(opponentMoves.get(0).row);
+                    System.out.println(opponentMoves.get(0).col);
+
                     if (opponentMoves.contains(clickedTile)) {
                         System.out.println("In check");
                         return;
