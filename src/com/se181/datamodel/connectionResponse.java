@@ -5,8 +5,9 @@ import java.io.Serializable;
 public class connectionResponse implements Serializable {
 
     public Boolean isConnected;
-
     private static long serialVersionUID = 1L;
+
+
 
     //Default constructor
     public connectionResponse(){
@@ -22,7 +23,7 @@ public class connectionResponse implements Serializable {
         return isConnected;
     }
 
-    private void setConnected(Boolean connected) {
+    public void setConnected(Boolean connected) {
         isConnected = connected;
     }
 }

@@ -11,7 +11,6 @@ public class gamePlay implements Serializable {
     public String hasWon;
     // keep track who will make the next move
     public String nextTurn;
-
     private static long serialVersionUID = 1L;
 
     //Default constructor
@@ -32,7 +31,7 @@ public class gamePlay implements Serializable {
         return chessBoard;
     }
 
-    private void setChessBoard(Board chessBoard) {
+    public void setChessBoard(Board chessBoard) {
         this.chessBoard = chessBoard;
     }
 
@@ -40,7 +39,7 @@ public class gamePlay implements Serializable {
         return hasWon;
     }
 
-    private void setHasWon(String hasWon) {
+    public void setHasWon(String hasWon) {
         this.hasWon = hasWon;
     }
 
@@ -48,7 +47,7 @@ public class gamePlay implements Serializable {
         return nextTurn;
     }
 
-    private void setNextTurn(String nextTurn) {
+    public void setNextTurn(String nextTurn) {
         this.nextTurn = nextTurn;
     }
 }

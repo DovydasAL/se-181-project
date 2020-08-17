@@ -12,4 +12,5 @@ public class Player implements Serializable {
         this.color = color;
         this.nickname = nickname;
     }
+
 }

@@ -20,8 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b742d1af-788a-4562-be61-9b60dfeb7be7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/se181/datamodel/quit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/se181/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/Server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/se181/Server/ServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/Server/ServerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/Server/testClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/Server/testClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/clientmodel/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/clientmodel/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/connectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/connectionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/connectionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/connectionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/gamePlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/gamePlay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/readyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/readyRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/readyResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/readyResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +121,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.testClient" />
@@ -158,30 +178,39 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2133" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597631777862">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2133" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597631777862" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1597561580952">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1597561580952" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1597562213422">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="914" height="286" key="GridCell.Tab.0.bottom" timestamp="1597631761851">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597562213422" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1597562213422">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="914" height="286" key="GridCell.Tab.0.bottom/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597631761851" />
+    <state width="914" height="286" key="GridCell.Tab.0.center" timestamp="1597631761851">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597562213422" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1597562213422">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="914" height="286" key="GridCell.Tab.0.center/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597631761851" />
+    <state width="914" height="286" key="GridCell.Tab.0.left" timestamp="1597631761851">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597562213422" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1597562213422">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="914" height="286" key="GridCell.Tab.0.left/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597631761851" />
+    <state width="914" height="286" key="GridCell.Tab.0.right" timestamp="1597631761851">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597562213422" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1597562153290">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="914" height="286" key="GridCell.Tab.0.right/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597631761851" />
+    <state x="2360" y="98" width="1024" height="845" key="SettingsEditor" timestamp="1597639158562">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1597562153290" />
+    <state x="2360" y="98" width="1024" height="845" key="SettingsEditor/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597639158562" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
