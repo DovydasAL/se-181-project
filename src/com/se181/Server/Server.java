@@ -10,7 +10,7 @@ public class Server {
             ServerSocket listener = new ServerSocket(8080);
             System.out.println("Server is running on port 8080");
             var pool = Executors.newFixedThreadPool(2);
-            while (true){
+            for(int i = 0; i<2;i++){
                 pool.execute(new ServerThread(listener.accept()));
             }
         }catch (IOException exception){
