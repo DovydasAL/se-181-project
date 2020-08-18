@@ -1,14 +1,17 @@
 package com.se181.clientmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
 import static com.se181.clientmodel.PieceColor.WHITE;
 
-public class PieceSet {
+public class PieceSet implements Serializable {
     public List<ChessPiece> pieces = new ArrayList<ChessPiece>();
     public PieceColor color;
+
+    private static long serialVersionUID = 1L;
 
     public PieceSet(PieceColor color) {
         this.color = color;

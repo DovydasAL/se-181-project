@@ -1,9 +1,12 @@
 package com.se181.clientmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class King extends ChessPiece {
+public class King extends ChessPiece implements Serializable {
+
+    private static long serialVersionUID = 1L;
 
     public King(PieceColor color, Square position) {
         super(color, position);

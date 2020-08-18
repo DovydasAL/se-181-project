@@ -3,12 +3,15 @@ package com.se181.clientmodel;
 import com.se181.gui.MainForm;
 import com.sun.tools.javac.Main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.WHITE;
 
-public class Pawn extends ChessPiece {
+public class Pawn extends ChessPiece implements Serializable {
+
+    private static long serialVersionUID = 1L;
 
     public Pawn(PieceColor color, Square position) {
         super(color, position);
