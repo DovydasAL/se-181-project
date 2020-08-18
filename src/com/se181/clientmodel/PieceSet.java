@@ -52,4 +52,33 @@ public class PieceSet implements Serializable {
         King king = new King(color, new Square(majorPieceRow, 4));
         pieces.add(king);
     }
+
+    public PieceSet shallowCopy() {
+        PieceSet set = new PieceSet(this.color);
+        List<ChessPiece> newPieces =  new ArrayList<>();
+        for (int i=0;i<this.pieces.size();i++) {
+            Object piece = (Object) pieces.get(i);
+            ChessPiece chessPiece = pieces.get(i);
+            if (piece.getClass() == Pawn.class) {
+                newPieces.add(new Pawn(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+            }
+            else if (piece.getClass() == Rook.class) {
+                newPieces.add(new Rook(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+            }
+            else if (piece.getClass() == Knight.class) {
+                newPieces.add(new Knight(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+            }
+            else if (piece.getClass() == Bishop.class) {
+                newPieces.add(new Bishop(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+            }
+            else if (piece.getClass() == King.class) {
+                newPieces.add(new King(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+            }
+            else if (piece.getClass() == Queen.class) {
+                newPieces.add(new Queen(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+            }
+        }
+        set.pieces = newPieces;
+        return set;
+    }
 }

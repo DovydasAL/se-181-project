@@ -149,7 +149,7 @@ public class Game implements Serializable {
         if (lastClickedTile == null) {
             lastClickedTile = clickedTile;
             MainForm.mainForm.gamePanel.repaint();
-            return new gamePlay(this.board, "", player.nickname);
+            return null;
         }
 
         PieceSet pieceSet = null;
@@ -159,14 +159,30 @@ public class Game implements Serializable {
         else if (player.color == BLACK) {
             pieceSet = board.blackSet;
         }
-
+        Board flippedBoard = this.board.flipBoard();
         for (int i=0;i<pieceSet.pieces.size();i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
+                if (piece instanceof King) {
+                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleAttackMove(this.opponent.color);
+                    System.out.println(opponentMoves.get(0).row);
+                    System.out.println(opponentMoves.get(0).col);
+
+                    if (opponentMoves.contains(clickedTile)) {
+                        System.out.println("In check");
+                        return null;
+                    }
+                }
+                PieceColor color =  board.containsPieceAt(clickedTile);
+                if (color != null) {
+                    ChessPiece opponent = board.getPieceAt(clickedTile, color);
+                    opponent.Captured = true;
+                }
                 piece.position.row = clickedTile.row;
                 piece.position.col = clickedTile.col;
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
+                return null;
             }
         }
         MainForm.mainForm.gamePanel.repaint();
