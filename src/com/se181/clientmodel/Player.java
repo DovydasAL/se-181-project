@@ -1,8 +1,12 @@
 package com.se181.clientmodel;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     public PieceColor color;
     public String nickname;
+
+    private static long serialVersionUID = 1L;
 
     public Player(PieceColor color, String nickname) {
         this.color = color;

@@ -1,9 +1,12 @@
 package com.se181.clientmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop extends ChessPiece {
+public class Bishop extends ChessPiece implements Serializable {
+
+    private static long serialVersionUID = 1L;
 
     public Bishop(PieceColor color, Square position) {
         super(color, position);

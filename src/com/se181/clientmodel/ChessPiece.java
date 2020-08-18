@@ -2,14 +2,17 @@ package com.se181.clientmodel;
 
 import com.se181.gui.MainForm;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class ChessPiece {
+public abstract class ChessPiece implements Serializable {
     public PieceColor color;
     public Square position;
     public boolean Captured;
     // TODO: figure out how to filter out moves that put king into check
     public abstract List<Square> validMoves(Board board);
+
+    private static long serialVersionUID = 1L;
 
     public ChessPiece() {}
 
