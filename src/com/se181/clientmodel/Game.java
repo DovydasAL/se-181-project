@@ -64,16 +64,20 @@ public class Game implements Serializable {
     }
 
     public void connectToServer() throws IOException, ClassNotFoundException {
-        connectionResponse cRes;
+        connectionResponse cRes = null;
         try {
-            cRes = (connectionResponse)inStream.readObject();
+            while(cRes == null) {
+                cRes = (connectionResponse) inStream.readObject();
+            }
             if(!cRes.getConnected()){
                 //TODO: stay at the connectionPanel and display a message that the server is full (already have two clients connecting to the server)
             }
             if(cRes.getConnected() && !cRes.getHasTwo()){
                 //TODO: go to the gamePlayPanel; deactivate all the buttons ( four buttons and all of the TileButtons); display a message "Waiting for an opponent"
-
-                cRes = (connectionResponse)inStream.readObject();
+                cRes = null;
+                while(cRes == null) {
+                    cRes = (connectionResponse) inStream.readObject();
+                }
                 if(cRes.getConnected() && cRes.getHasTwo()){
                     //TODO: stay in the gamePlayPanel ; activate "Start game" button ; display a message "Hit "Start game" to play"
                 }
@@ -91,7 +95,7 @@ public class Game implements Serializable {
     public void startGame() throws IOException, ClassNotFoundException {
         //TODO: get the nick from the textbox in connectionPanel and assign it to player.nickname
         readyRequest req = new readyRequest(true, player.nickname);
-        readyResponse res;
+        readyResponse res = null;
         try {
             outStream.writeObject(req);
         } catch(IOException ex) {
@@ -100,7 +104,9 @@ public class Game implements Serializable {
             System.exit(1);
         }
         try {
-            res = (readyResponse) inStream.readObject();
+            while(res == null) {
+                res = (readyResponse) inStream.readObject();
+            }
             if(res.getFirstTurn().equals(player.nickname)){
                 playersTurn = true;
             }
@@ -123,10 +129,12 @@ public class Game implements Serializable {
 
     public void restartGame() throws IOException, ClassNotFoundException {
         gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
-        gamePlay res;
+        gamePlay res = null;
         try {
             outStream.writeObject(req);
-            res = (gamePlay)inStream.readObject();
+            while(res == null) {
+                res = (gamePlay) inStream.readObject();
+            }
             //TODO: display the restart panel and the winning message (the winner's nickname can be retrieved from res.hasWon; however, create "OK" button on the restart panel
             //TODO: create a listener for "OK" button that when the players click on "OK" button, reinitialize the game by resetting game.board to the default (reset the positions of chess pieces) and using player.color to decide who goes first by activating/deactivating TileButtons.
         } catch(IOException ex) {
@@ -140,10 +148,12 @@ public class Game implements Serializable {
 
     public void quitGame() throws IOException, ClassNotFoundException {
         gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
-        gamePlay res;
+        gamePlay res = null;
         try {
             outStream.writeObject(req);
-            res = (gamePlay)inStream.readObject();
+            while(res == null) {
+                res = (gamePlay) inStream.readObject();
+            }
             this.socket.close();
             //TODO: display the winning panel and the winning message (the winner's nickname can be retrieved from res.hasWon); hide "OK" button and only show "QUIT" button
             //TODO: create a listener for "QUIT" button that when the players click on "QUIT" button, the application will be terminated
@@ -155,9 +165,11 @@ public class Game implements Serializable {
     }
 
     public gamePlay waitForOpponent() throws IOException, ClassNotFoundException {
-        gamePlay gRes = new gamePlay();
+        gamePlay gRes = null;
         try {
-            gRes = (gamePlay) inStream.readObject();
+            while(gRes == null) {
+                gRes = (gamePlay) inStream.readObject();
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read gamePlay");
             ex.printStackTrace();
@@ -226,6 +238,7 @@ public class Game implements Serializable {
             System.exit(1);
         }
         try {
+            //TODO: since the this.board is set to the new board object received from the server, update the chessboard in the gamePlayPanel using this.board
             this.board = waitForOpponent().chessBoard;
         } catch (Exception ex) {
             System.out.println("Failed to update chessBoard from gamePlay response.");
