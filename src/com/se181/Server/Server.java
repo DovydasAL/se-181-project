@@ -34,7 +34,7 @@ public class Server {
             connResponse1.setHasTwo(true);
             outStream.writeObject(connResponse1);
             outStream.flush();
-            Thread gameHandler = new Thread(new ServerThread(player1,player2));
+            Thread gameHandler = new Thread(new ServerThread(player1,player2,outStream,outStream1));
             gameHandler.start();
         }catch (IOException exception){
             exception.printStackTrace();

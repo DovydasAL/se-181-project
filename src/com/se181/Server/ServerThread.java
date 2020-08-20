@@ -20,7 +20,9 @@ public class ServerThread implements Runnable{
     private ObjectInputStream fromPlayer1;
     private ObjectOutputStream toPlayer2;
     private ObjectInputStream fromPlayer2 ;
-    public ServerThread(Socket player1, Socket player2){
+    public ServerThread(Socket player1, Socket player2,ObjectOutputStream toPlayer1,ObjectOutputStream toPlayer2){
+        this.toPlayer1 = toPlayer1;
+        this.toPlayer2 = toPlayer2;
         this.Player1 = player1;
         this.Player2 = player2;
         this.players = new ArrayList<>();
@@ -45,18 +47,13 @@ public class ServerThread implements Runnable{
         int c;
         System.out.println("Ready for the game session");
         try {
-            toPlayer1 = new ObjectOutputStream(this.Player1.getOutputStream());
-            toPlayer1.flush();
             fromPlayer1 = new ObjectInputStream(this.Player1.getInputStream());
-            toPlayer2 = new ObjectOutputStream(this.Player2.getOutputStream());
-            toPlayer2.flush();
             fromPlayer2 = new ObjectInputStream(this.Player2.getInputStream());
-            toPlayer1.reset();
-            toPlayer2.reset();
             var rReq1 = (readyRequest)fromPlayer1.readObject();
             var cRes2 = new connectionResponse(true);
             cRes2.setHasTwo(true);
             toPlayer2.writeObject(cRes2);
+            toPlayer2.flush();
             var rReq2 = (readyRequest)fromPlayer2.readObject();
             Player p1 = new Player(PieceColor.WHITE,rReq1.getNickName());
             this.whoTurn = rReq1.getNickName();
@@ -67,7 +64,9 @@ public class ServerThread implements Runnable{
             rResp.setNickNameList(players);
             rResp.setFirstTurn(p1.nickname);
             toPlayer1.writeObject(rResp);
+            toPlayer1.flush();
             toPlayer2.writeObject(rResp);
+            toPlayer2.flush();
             Object gameplay = null;
             while(true) {
                 if (this.whoTurn.equals(players.get(0).nickname)){
@@ -78,13 +77,19 @@ public class ServerThread implements Runnable{
                     this.whoTurn = players.get(0).nickname;
                 }
                 if(classifyRequest(gameplay) == 3){
-                    toPlayer1.writeObject(gameplay);
-                    toPlayer2.writeObject(gameplay);
+                    var gRes = (gamePlay)gameplay;
+                    System.out.println(gRes.nextTurn);
+                    toPlayer1.writeObject(gRes);
+                    toPlayer1.flush();
+                    toPlayer2.writeObject(gRes);
+                    toPlayer2.flush();
                 }else if(classifyRequest(gameplay) == 4){
                     var qRes = new quit();
                     qRes.setQuit(true);
                     toPlayer1.writeObject(qRes);
+                    toPlayer1.flush();
                     toPlayer2.writeObject(qRes);
+                    toPlayer2.flush();
                     break;
                 }
             }

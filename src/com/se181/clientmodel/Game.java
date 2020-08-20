@@ -3,6 +3,7 @@ package com.se181.clientmodel;
 import com.se181.datamodel.*;
 import com.se181.gui.MainForm;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -34,7 +35,7 @@ public class Game implements Serializable {
     public Game() throws Exception{
         serverIP = "";
         board = new Board();
-        lastClickedTile = new Square(0, 0);
+        lastClickedTile = null;
         player = new Player(WHITE, "test1");
         opponent = new Player(BLACK, "test2");
         playersTurn = false;
@@ -65,9 +66,9 @@ public class Game implements Serializable {
     public void connectToServer() throws IOException, ClassNotFoundException {
         connectionResponse cRes = null;
         try {
-            while(cRes == null) {
-                cRes = (connectionResponse) inStream.readObject();
-            }
+
+            cRes = (connectionResponse) inStream.readObject();
+
             if(!cRes.getConnected()){
                 MainForm.mainForm.connectPanel.displayErrorMessage("Server is full");
             }
@@ -106,12 +107,17 @@ public class Game implements Serializable {
             System.exit(1);
         }
         try {
-            while(res == null) {
-                res = (readyResponse) inStream.readObject();
-            }
+
+            res = (readyResponse) inStream.readObject();
+
             if(res.getFirstTurn().equals(player.nickname)){
                 playersTurn = true;
             }
+            System.out.println(res.getFirstTurn());
+            System.out.println(res.playerList.get(0).nickname);
+            System.out.println(res.playerList.get(0).color);
+            System.out.println(res.playerList.get(1).nickname);
+            System.out.println(res.playerList.get(1).color);
             for(int i = 0; i < res.getNickNameList().size(); i++){
                 if(res.getNickNameList().get(i).nickname.equals(player.nickname)){
                     player.color = res.getNickNameList().get(i).color;
@@ -123,9 +129,21 @@ public class Game implements Serializable {
             }
             if (MainForm.game.player.color == BLACK) {
                 MainForm.game.board = MainForm.game.board.flipBoard();
+                MainForm.mainForm.gamePanel.repaint();
             }
             if (playersTurn) {
                 MainForm.mainForm.gamePanel.enableAllTileButtons();
+            }else{
+                gamePlay gamePlayRes = waitForOpponent();
+                if(player.color == BLACK){
+                    this.board = gamePlayRes.getChessBoard().flipBoard();
+                }else {
+                    this.board = gamePlayRes.getChessBoard();
+                }
+
+                MainForm.mainForm.gamePanel.repaint();
+                MainForm.mainForm.gamePanel.enableAllTileButtons();
+
             }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read readyResponse");
@@ -172,9 +190,10 @@ public class Game implements Serializable {
     public gamePlay waitForOpponent() throws IOException, ClassNotFoundException {
         gamePlay gRes = null;
         try {
-            while(gRes == null) {
-                gRes = (gamePlay) inStream.readObject();
-            }
+            //while(gRes == null) {
+            gRes = (gamePlay) inStream.readObject();
+            System.out.println(gRes.nextTurn);
+            //}
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read gamePlay");
             ex.printStackTrace();
@@ -220,13 +239,18 @@ public class Game implements Serializable {
                 piece.position.col = clickedTile.col;
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
-                return;
+                break;
             }
         }
-        MainForm.mainForm.gamePanel.repaint();
-        lastClickedTile = clickedTile;
+        //MainForm.mainForm.gamePanel.repaint();
+        //lastClickedTile = clickedTile;
+        gamePlay gReq;
+        if(player.color == BLACK){
+            gReq = new gamePlay(this.board.flipBoard(), "", opponent.nickname);
+        }else {
+            gReq = new gamePlay(this.board, "", opponent.nickname);
+        }
 
-        gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
         playersTurn = false;
         MainForm.mainForm.gamePanel.disableAllTileButtons();
         try {

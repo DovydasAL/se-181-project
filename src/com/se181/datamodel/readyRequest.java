@@ -15,9 +15,9 @@ public class readyRequest implements Serializable {
     }
 
     //Parameterized constructor
-    public readyRequest(Boolean isReady){
+    public readyRequest(Boolean isReady,String nickName){
         this.isReady = isReady;
-        this.nickName = "";
+        this.nickName = nickName;
     }
 
     public Boolean getReady() {
