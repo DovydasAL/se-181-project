@@ -64,15 +64,15 @@ public class Game implements Serializable {
     }
 
     public connectionResponse connectToServer() throws IOException, ClassNotFoundException {
-        connectionRequest cReq = new connectionRequest(player.nickname);
+        //connectionRequest cReq = new connectionRequest(player.nickname);
         connectionResponse cRes = new connectionResponse();
-        try {
-            outStream.writeObject(cReq);
-        } catch(IOException ex) {
-            System.out.println("Failed to write connectionRequest.");
-            ex.printStackTrace();
-            System.exit(1);
-        }
+        //try {
+        //    outStream.writeObject(cReq);
+        //} catch(IOException ex) {
+         //   System.out.println("Failed to write connectionRequest.");
+         //   ex.printStackTrace();
+         //   System.exit(1);
+        //}
         try {
             cRes = (connectionResponse)inStream.readObject();
         } catch (ClassNotFoundException ex) {

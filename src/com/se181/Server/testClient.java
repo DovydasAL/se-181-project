@@ -26,15 +26,12 @@ public class testClient {
         try (var socket = new Socket("127.0.0.1", 8080)) {
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
-            connectionRequest c = new connectionRequest();
-            toServer.writeObject(c);
             toServer.flush();
             Object res = fromServer.readObject();
-            if(classifyResponse(res) == 1){
+            if(classifyResponse(res) == 1) {
                 System.out.println("tested");
-                connectionResponse response = (connectionResponse)res;
-                System.out.println(response.getConnected().toString());
             }
+
 
         }
     }

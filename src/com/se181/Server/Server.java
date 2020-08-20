@@ -1,28 +1,37 @@
 package com.se181.Server;
 
 import com.se181.clientmodel.PieceColor;
+import com.se181.clientmodel.Player;
+import com.se181.datamodel.*;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
-import java.util.concurrent.Executors;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
     public static void main(String[] args) throws Exception{
-        boolean isFull = false;
         try{
             ServerSocket listener = new ServerSocket(8080);
             System.out.println("Server is running on port 8080");
-            var pool = Executors.newFixedThreadPool(2);
-            ServerThread client1 = new ServerThread(listener.accept(), PieceColor.BLACK);
-            pool.execute(client1);
-            ServerThread client2 = new ServerThread(listener.accept(), PieceColor.WHITE);
-            pool.execute(client2);
-            client1.setOpponent(client2.getNickname());
-            client2.setOpponent(client1.getNickname());
-            //for(int i = 0; i<2;i++){
-            //    pool.execute(new ServerThread(listener.accept(),i+1));
-            //}
-
+            Socket player1  = listener.accept();
+            ObjectOutputStream outStream = new ObjectOutputStream(player1.getOutputStream());
+            outStream.flush();
+            var connResponse = new connectionResponse(true);
+            System.out.println("Connected:  "+ player1);
+            outStream.writeObject(connResponse);
+            Socket player2 = listener.accept();
+            System.out.println("Connected:  "+ player2);
+            ObjectOutputStream outStream1 = new ObjectOutputStream(player2.getOutputStream());
+            connResponse.setHasTwo(true);
+            var connResponse1 = new connectionResponse(true);
+            outStream.writeObject(connResponse);
+            outStream1.writeObject(connResponse1);
+            Thread gameHandler = new Thread(new ServerThread(player1,player2));
+            gameHandler.start();
         }catch (IOException exception){
             exception.printStackTrace();
         }
