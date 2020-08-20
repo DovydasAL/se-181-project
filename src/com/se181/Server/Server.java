@@ -23,13 +23,17 @@ public class Server {
             var connResponse = new connectionResponse(true);
             System.out.println("Connected:  "+ player1);
             outStream.writeObject(connResponse);
+            outStream.flush();
             Socket player2 = listener.accept();
             System.out.println("Connected:  "+ player2);
             ObjectOutputStream outStream1 = new ObjectOutputStream(player2.getOutputStream());
-            connResponse.setHasTwo(true);
             var connResponse1 = new connectionResponse(true);
-            outStream.writeObject(connResponse);
+
             outStream1.writeObject(connResponse1);
+            outStream1.flush();
+            connResponse1.setHasTwo(true);
+            outStream.writeObject(connResponse1);
+            outStream.flush();
             Thread gameHandler = new Thread(new ServerThread(player1,player2));
             gameHandler.start();
         }catch (IOException exception){

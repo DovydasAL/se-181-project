@@ -16,6 +16,10 @@ public class ServerThread implements Runnable{
     private Socket Player2;
     List<Player> players;
     String whoTurn;
+    private ObjectOutputStream toPlayer1;
+    private ObjectInputStream fromPlayer1;
+    private ObjectOutputStream toPlayer2;
+    private ObjectInputStream fromPlayer2 ;
     public ServerThread(Socket player1, Socket player2){
         this.Player1 = player1;
         this.Player2 = player2;
@@ -41,12 +45,14 @@ public class ServerThread implements Runnable{
         int c;
         System.out.println("Ready for the game session");
         try {
-            ObjectOutputStream toPlayer1 = new ObjectOutputStream(this.Player1.getOutputStream());
+            toPlayer1 = new ObjectOutputStream(this.Player1.getOutputStream());
             toPlayer1.flush();
-            ObjectInputStream fromPlayer1 = new ObjectInputStream(this.Player1.getInputStream());
-            ObjectOutputStream toPlayer2 = new ObjectOutputStream(this.Player2.getOutputStream());
+            fromPlayer1 = new ObjectInputStream(this.Player1.getInputStream());
+            toPlayer2 = new ObjectOutputStream(this.Player2.getOutputStream());
             toPlayer2.flush();
-            ObjectInputStream fromPlayer2 = new ObjectInputStream(this.Player2.getInputStream());
+            fromPlayer2 = new ObjectInputStream(this.Player2.getInputStream());
+            toPlayer1.reset();
+            toPlayer2.reset();
             var rReq1 = (readyRequest)fromPlayer1.readObject();
             var cRes2 = new connectionResponse(true);
             cRes2.setHasTwo(true);

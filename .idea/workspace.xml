@@ -20,16 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="083cb5d8-a087-4700-810f-198e9c001bc3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/se181/Server/testClient2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/se181/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/Server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/se181/Server/ServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/Server/ServerThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/se181/Server/testClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/Server/testClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/se181/clientmodel/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/clientmodel/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/se181/clientmodel/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/clientmodel/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/connectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/connectionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/connectionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/connectionResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/readyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/readyRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/se181/datamodel/readyResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/se181/datamodel/readyResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,13 +69,21 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.se181.gui.panels" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.testClient">
+  <component name="RunManager" selected="Application.testClient2 (1)">
+    <configuration name="Main (1)" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.se181.gui.MainForm" />
+      <module name="Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.se181.gui.MainForm" />
       <module name="Project" />
@@ -93,6 +96,19 @@
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.se181.Server.Server" />
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.se181.Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="client2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.se181.Server.testClient" />
       <module name="Project" />
       <extension name="coverage">
         <pattern>
@@ -117,21 +133,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration name="testClient2 (1)" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.se181.Server.testClient2" />
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.se181.Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testClient2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.se181.Server.testClient2" />
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.se181.Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main (1)" />
+      <item itemvalue="Application.client2" />
+      <item itemvalue="Application.testClient2 (1)" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.testClient" />
+      <item itemvalue="Application.testClient2" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.testClient" />
+        <item itemvalue="Application.testClient2" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.testClient" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -154,7 +208,8 @@
       <workItem from="1596744635226" duration="6471000" />
       <workItem from="1596751719669" duration="1922000" />
       <workItem from="1597247737471" duration="4295000" />
-      <workItem from="1597891015896" duration="11222000" />
+      <workItem from="1597891015896" duration="11655000" />
+      <workItem from="1597927420271" duration="13297000" />
     </task>
     <servers />
   </component>
@@ -174,38 +229,51 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1597904068307">
+    <state x="331" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597936859575">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="2334" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597904319105" />
+    <state x="331" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1597936859575" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1597943031767">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597904068307" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1597904068307">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943031767" />
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1597937756871" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1597943031767">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597904068307" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1597904068307">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943031767" />
+    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1597937756871" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1597943031767">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597904068307" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1597904068307">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943031766" />
+    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1597937756871" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1597943031767">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597904068307" />
-    <state width="1877" height="347" key="GridCell.Tab.1.bottom" timestamp="1597774357546">
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943031767" />
+    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1597937756871" />
+    <state width="1877" height="261" key="GridCell.Tab.1.bottom" timestamp="1597943029122">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597774357546" />
-    <state width="1877" height="347" key="GridCell.Tab.1.center" timestamp="1597774357546">
+    <state width="1877" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943029122" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1597937756268" />
+    <state width="1877" height="261" key="GridCell.Tab.1.center" timestamp="1597943029122">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597774357546" />
-    <state width="1877" height="347" key="GridCell.Tab.1.left" timestamp="1597774357545">
+    <state width="1877" height="261" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943029122" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1597937756268" />
+    <state width="1877" height="261" key="GridCell.Tab.1.left" timestamp="1597943029122">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597774357545" />
-    <state width="1877" height="347" key="GridCell.Tab.1.right" timestamp="1597774357546">
+    <state width="1877" height="261" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943029122" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1597937756268" />
+    <state width="1877" height="261" key="GridCell.Tab.1.right" timestamp="1597943029122">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597774357546" />
+    <state width="1877" height="261" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597943029122" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1597937756268" />
     <state x="2258" y="172" key="MergeDialog" timestamp="1597773652555">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -214,5 +282,29 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2518" y="281" key="MultipleFileMergeDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597773652578" />
+    <state x="306" y="148" width="924" height="628" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1597936919627">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="306" y="148" width="924" height="628" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1597936919627" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.StreamCorruptedException" package="java.io" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/se181/Server/ServerThread.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/se181/Server/ServerThread.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
