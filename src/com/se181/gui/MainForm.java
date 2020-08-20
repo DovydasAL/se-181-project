@@ -3,6 +3,7 @@ package com.se181.gui;
 import com.se181.clientmodel.Game;
 import com.se181.gui.panels.ConnectPanel;
 import com.se181.gui.panels.GamePanel;
+import com.se181.gui.panels.WinningNotificationPanel;
 
 import javax.swing.*;
 
@@ -11,6 +12,7 @@ public class MainForm extends JFrame {
     public static MainForm mainForm;
     public ConnectPanel connectPanel;
     public GamePanel gamePanel;
+    public JFrame winningNotificationPanel;
 
     public static Game game;
 
@@ -30,10 +32,22 @@ public class MainForm extends JFrame {
     }
 
     public void displayGamePanel() {
-        this.remove(connectPanel);
+        if (connectPanel != null) {
+            this.remove(connectPanel);
+        }
         this.gamePanel = new GamePanel();
         this.add(gamePanel);
         this.setPreferredSize(GamePanel.initialDimensions);
+        this.pack();
+    }
+
+    public void displayConnectPanel() {
+        if (gamePanel != null) {
+            this.remove(gamePanel);
+        }
+        this.connectPanel = new ConnectPanel();
+        this.add(connectPanel);
+        this.setPreferredSize(ConnectPanel.initialDimensions);
         this.pack();
     }
 

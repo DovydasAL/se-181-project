@@ -1,6 +1,7 @@
 package com.se181.gui.panels;
 
 import com.se181.gui.listeners.HelpButtonListener;
+import com.se181.gui.listeners.ResignButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,6 +68,7 @@ public class GameInfoPanel extends JPanel {
         constraints.gridx = 1;
         constraints.gridy = 5;
         resign = new JButton("Resign");
+        resign.addActionListener(new ResignButtonListener());
         this.add(resign, constraints);
     }
 }

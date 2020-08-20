@@ -28,7 +28,7 @@ public class Knight extends ChessPiece implements Serializable {
         for (int i=0;i<knightOffsets.size();i++) {
             KnightOffset offset = knightOffsets.get(i);
             Square movePosition = new Square(this.position.row + offset.rowOffset, this.position.col + offset.colOffset);
-            handlePosition(movePosition, validMoves, board);
+            handlePosition(movePosition, validMoves, board, this.color);
         }
 
         return validMoves;

@@ -12,10 +12,10 @@ public class ConnectPanel extends JPanel {
     private GridBagConstraints constraints;
     private JLabel titleLabel;
     private JLabel nickNameLabel;
-    private JTextArea nickNameArea;
-    private JTextArea serverIPArea;
+    public JTextArea nickNameArea;
+    public JTextArea serverIPArea;
     private JButton connectButton;
-    private JLabel notificationLabel;
+    public JLabel notificationLabel;
 
     public ConnectPanel() {
         super();
@@ -62,7 +62,7 @@ public class ConnectPanel extends JPanel {
         this.add(connectButton, constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 3;
+        constraints.gridy = 5;
         notificationLabel = new JLabel();
         notificationLabel.setForeground(Color.RED);
         this.add(notificationLabel, constraints);

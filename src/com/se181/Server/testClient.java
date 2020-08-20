@@ -23,7 +23,7 @@ public class testClient {
         return classify;
     }
     public static void main(String[] args) throws Exception{
-        try (var socket = new Socket("127.0.0.1", 8080)) {
+        try (Socket socket = new Socket("127.0.0.1", 8080)) {
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
             connectionRequest c = new connectionRequest();

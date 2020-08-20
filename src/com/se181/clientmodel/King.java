@@ -18,10 +18,11 @@ public class King extends ChessPiece implements Serializable {
             for (int j=-1;j<=1;j++) {
                 Square move = new Square(this.position.row + i, this.position.col + j);
                 if (!(i == 0 && j == 0)) {
-                    handlePosition(move, validMoves, board);
+                    handlePosition(move, validMoves, board, this.color);
                 }
             }
         }
+
 
         // TODO: add castling
 

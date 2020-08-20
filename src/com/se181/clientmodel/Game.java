@@ -164,13 +164,14 @@ public class Game implements Serializable {
             ChessPiece piece = pieceSet.pieces.get(i);
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
                 if (piece instanceof King) {
-                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleAttackMove(this.opponent.color);
+                    List<Square> opponentMoves = board.calculateAllPossibleAttackMove(this.opponent.color);
                     System.out.println(opponentMoves.get(0).row);
                     System.out.println(opponentMoves.get(0).col);
-
-                    if (opponentMoves.contains(clickedTile)) {
-                        System.out.println("In check");
-                        return null;
+                    for (int j=0;j<opponentMoves.size();j++) {
+                        if (clickedTile.row == opponentMoves.get(j).row && clickedTile.col == opponentMoves.get(j).col) {
+                            System.out.println("In check");
+                            return null;
+                        }
                     }
                 }
                 PieceColor color =  board.containsPieceAt(clickedTile);
@@ -180,6 +181,12 @@ public class Game implements Serializable {
                 }
                 piece.position.row = clickedTile.row;
                 piece.position.col = clickedTile.col;
+                piece.hasMoved = true;
+                // Pawn promotion
+                if (piece instanceof Pawn && piece.position.row == 0) {
+                    pieceSet.pieces.add(new Queen(piece.color, piece.position));
+                    pieceSet.pieces.remove(piece);
+                }
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
                 return null;
@@ -204,7 +211,6 @@ public class Game implements Serializable {
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
 
-        // TODO: Uncomment when valid pieces is defined
         List<Square> validMoves = piece.validMoves(this.board);
         for (int i=0;i<validMoves.size();i++) {
             if (validMoves.get(i).row == dst.row && validMoves.get(i).col == dst.col) {

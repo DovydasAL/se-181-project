@@ -1,7 +1,6 @@
 package com.se181.clientmodel;
 
 import com.se181.gui.MainForm;
-import com.sun.tools.javac.Main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,14 +56,14 @@ public class Pawn extends ChessPiece implements Serializable {
     public List<Square> validAttackMoves(Board board) {
         List<Square> validMoves = new ArrayList<>();
         // Check for capture on top left
-        Square topLeft = new Square(this.position.row - 1, this.position.col - 1);
+        Square topLeft = new Square(this.position.row + 1, this.position.col - 1);
         PieceColor hasPieceTopLeft = board.containsPieceAt(topLeft);
         if (hasPieceTopLeft == MainForm.game.opponent.color) {
             validMoves.add(topLeft);
         }
 
         // Check for capture top right
-        Square topRight = new Square(this.position.row - 1, this.position.col + 1);
+        Square topRight = new Square(this.position.row + 1, this.position.col + 1);
         PieceColor hasPieceTopRight = board.containsPieceAt(topRight);
         if (hasPieceTopRight == MainForm.game.opponent.color) {
             validMoves.add(topRight);
