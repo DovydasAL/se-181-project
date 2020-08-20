@@ -4,17 +4,20 @@ import java.io.Serializable;
 
 public class readyRequest implements Serializable {
 
-    public Boolean isReady;
+    private Boolean isReady;
+    private String nickName;
     private static long serialVersionUID = 1L;
 
     //Default constructor
     public readyRequest(){
         isReady = false;
+        nickName = "";
     }
 
     //Parameterized constructor
-    public readyRequest(Boolean isReady){
+    public readyRequest(Boolean isReady, String nickName){
         this.isReady = isReady;
+        this.nickName = nickName;
     }
 
     public Boolean getReady() {
@@ -23,5 +26,13 @@ public class readyRequest implements Serializable {
 
     private void setReady(Boolean ready) {
         isReady = ready;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

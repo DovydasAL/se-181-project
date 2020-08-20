@@ -63,52 +63,74 @@ public class Game implements Serializable {
         this.inStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    public connectionResponse connectToServer() throws IOException, ClassNotFoundException {
-        connectionRequest cReq = new connectionRequest(player.nickname);
-        connectionResponse cRes = new connectionResponse();
-        try {
-            outStream.writeObject(cReq);
-        } catch(IOException ex) {
-            System.out.println("Failed to write connectionRequest.");
-            ex.printStackTrace();
-            System.exit(1);
-        }
+    public void connectToServer() throws IOException, ClassNotFoundException {
+        connectionResponse cRes;
         try {
             cRes = (connectionResponse)inStream.readObject();
+            if(!cRes.getConnected()){
+                //TODO: stay at the connectionPanel and display a message that the server is full (already have two clients connecting to the server)
+            }
+            if(cRes.getConnected() && !cRes.getHasTwo()){
+                //TODO: go to the gamePlayPanel; deactivate all the buttons ( four buttons and all of the TileButtons); display a message "Waiting for an opponent"
+
+                cRes = (connectionResponse)inStream.readObject();
+                if(cRes.getConnected() && cRes.getHasTwo()){
+                    //TODO: stay in the gamePlayPanel ; activate "Start game" button ; display a message "Hit "Start game" to play"
+                }
+            }
+            else if(cRes.getConnected() && cRes.getHasTwo()){
+                //TODO: stay in the gamePlayPanel ; activate "Start game" ; display a message "Hit "Start game" to play"
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read connectionResponse.");
             ex.printStackTrace();
+            //TODO: stay at the connectionPanel ; display a message "The server is not available."
         }
-        return cRes;
     }
 
-    public readyResponse startGame() throws IOException, ClassNotFoundException {
-        readyRequest rReq = new readyRequest(true);
-        readyResponse rRes = new readyResponse();
+    public void startGame() throws IOException, ClassNotFoundException {
+        //TODO: get the nick from the textbox in connectionPanel and assign it to player.nickname
+        readyRequest req = new readyRequest(true, player.nickname);
+        readyResponse res;
         try {
-            outStream.writeObject(rReq);
+            outStream.writeObject(req);
         } catch(IOException ex) {
             System.out.println("Failed to write readyRequest.");
             ex.printStackTrace();
             System.exit(1);
         }
         try {
-            rRes = (readyResponse) inStream.readObject();
+            res = (readyResponse) inStream.readObject();
+            if(res.getFirstTurn().equals(player.nickname)){
+                playersTurn = true;
+            }
+            for(int i = 0; i < res.getNickNameList().size(); i++){
+                if(res.getNickNameList().get(i).nickname.equals(player.nickname)){
+                    player.color = res.getNickNameList().get(i).color;
+                }
+                else{
+                    opponent.color = res.getNickNameList().get(i).color;
+                    opponent.nickname = res.getNickNameList().get(i).nickname;
+                }
+            }
+            //TODO: render chess pieces basing on player.color ; activate all of TileButtons if playersTurn == true
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read readyResponse");
             ex.printStackTrace();
             System.exit(1);
         }
-        return rRes;
     }
 
     public void restartGame() throws IOException, ClassNotFoundException {
-        readyRequest rReq = new readyRequest(!restart);
-        readyResponse rRes = new readyResponse();
+        gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
+        gamePlay res;
         try {
-            outStream.writeObject(rReq);
+            outStream.writeObject(req);
+            res = (gamePlay)inStream.readObject();
+            //TODO: display the restart panel and the winning message (the winner's nickname can be retrieved from res.hasWon; however, create "OK" button on the restart panel
+            //TODO: create a listener for "OK" button that when the players click on "OK" button, reinitialize the game by resetting game.board to the default (reset the positions of chess pieces) and using player.color to decide who goes first by activating/deactivating TileButtons.
         } catch(IOException ex) {
-            System.out.println("Failed to write readyRequest.");
+            System.out.println("Failed to write gamePlay object to restart the game");
             ex.printStackTrace();
             System.exit(1);
         }
@@ -116,16 +138,20 @@ public class Game implements Serializable {
 
     // TODO: really need startNewGame()
 
-    public gamePlay quitGame() throws IOException, ClassNotFoundException {
-        gamePlay gReq = new gamePlay(new Board(), opponent.nickname, opponent.nickname);
+    public void quitGame() throws IOException, ClassNotFoundException {
+        gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
+        gamePlay res;
         try {
-            outStream.writeObject(gReq);
+            outStream.writeObject(req);
+            res = (gamePlay)inStream.readObject();
+            this.socket.close();
+            //TODO: display the winning panel and the winning message (the winner's nickname can be retrieved from res.hasWon); hide "OK" button and only show "QUIT" button
+            //TODO: create a listener for "QUIT" button that when the players click on "QUIT" button, the application will be terminated
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
             System.exit(1);
         }
-        return gReq;
     }
 
     public gamePlay waitForOpponent() throws IOException, ClassNotFoundException {
@@ -188,8 +214,12 @@ public class Game implements Serializable {
         lastClickedTile = clickedTile;
 
         gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
+        playersTurn = false;
+        //TODO: deactivate all of TileButtonss
         try {
             outStream.writeObject(gReq);
+            playersTurn = true;
+            //TODO: activate all of TileButtons
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();

@@ -1,6 +1,9 @@
 package com.se181.gui.panels;
 
 import com.se181.gui.listeners.HelpButtonListener;
+import com.se181.gui.listeners.ResignButtonListener;
+import com.se181.gui.listeners.RestartGameListener;
+import com.se181.gui.listeners.StartGameListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,11 +54,13 @@ public class GameInfoPanel extends JPanel {
         constraints.gridx = 0;
         constraints.gridy = 4;
         startGame = new JButton("Start Game");
+        startGame.addActionListener(new StartGameListener());
         this.add(startGame, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 4;
         restartGame = new JButton("Restart Game");
+        restartGame.addActionListener(new RestartGameListener());
         this.add(restartGame, constraints);
 
         constraints.gridx = 0;
@@ -67,6 +72,7 @@ public class GameInfoPanel extends JPanel {
         constraints.gridx = 1;
         constraints.gridy = 5;
         resign = new JButton("Resign");
+        resign.addActionListener(new ResignButtonListener());
         this.add(resign, constraints);
     }
 }

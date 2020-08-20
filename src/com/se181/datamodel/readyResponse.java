@@ -3,6 +3,7 @@ package com.se181.datamodel;
 import com.se181.clientmodel.Player;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class readyResponse implements Serializable {
