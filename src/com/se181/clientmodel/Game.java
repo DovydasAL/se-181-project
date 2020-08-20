@@ -113,11 +113,6 @@ public class Game implements Serializable {
             if(res.getFirstTurn().equals(player.nickname)){
                 playersTurn = true;
             }
-            System.out.println(res.getFirstTurn());
-            System.out.println(res.playerList.get(0).nickname);
-            System.out.println(res.playerList.get(0).color);
-            System.out.println(res.playerList.get(1).nickname);
-            System.out.println(res.playerList.get(1).color);
             for(int i = 0; i < res.getNickNameList().size(); i++){
                 if(res.getNickNameList().get(i).nickname.equals(player.nickname)){
                     player.color = res.getNickNameList().get(i).color;
@@ -135,11 +130,11 @@ public class Game implements Serializable {
                 MainForm.mainForm.gamePanel.enableAllTileButtons();
             }else{
                 gamePlay gamePlayRes = waitForOpponent();
-                if(player.color == BLACK){
+                //if(player.color == BLACK){
                     this.board = gamePlayRes.getChessBoard().flipBoard();
-                }else {
-                    this.board = gamePlayRes.getChessBoard();
-                }
+                //}else {
+                //    this.board = gamePlayRes.getChessBoard();
+                //}
 
                 MainForm.mainForm.gamePanel.repaint();
                 MainForm.mainForm.gamePanel.enableAllTileButtons();
@@ -245,18 +240,18 @@ public class Game implements Serializable {
         //MainForm.mainForm.gamePanel.repaint();
         //lastClickedTile = clickedTile;
         gamePlay gReq;
-        if(player.color == BLACK){
-            gReq = new gamePlay(this.board.flipBoard(), "", opponent.nickname);
-        }else {
+        //if(player.color == BLACK){
+            //gReq = new gamePlay(this.board.flipBoard(), "", opponent.nickname);
+        //}else {
             gReq = new gamePlay(this.board, "", opponent.nickname);
-        }
+        //}
 
         playersTurn = false;
         MainForm.mainForm.gamePanel.disableAllTileButtons();
         try {
             outStream.writeObject(gReq);
             playersTurn = true;
-            MainForm.mainForm.gamePanel.enableAllTileButtons();
+
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
