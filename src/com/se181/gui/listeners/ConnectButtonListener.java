@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 public class ConnectButtonListener implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
-        // Connect to server, then change panel from connect to game
         MainForm.mainForm.displayGamePanel();
         try {
             MainForm.game = new Game();
+            MainForm.game.connectToServer();
         } catch(Exception ex) {
             System.out.println("Failed to set game attribute of MainForm");
             ex.printStackTrace();

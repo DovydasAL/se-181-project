@@ -7,6 +7,7 @@ import com.se181.gui.listeners.BoardTileListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
@@ -16,6 +17,7 @@ public class GameBoardPanel extends JPanel {
 
     private Image boardImage = new ImageIcon("resources/game_images/board.png").getImage();
     private Image highlightedMove = new ImageIcon("resources/game_images/highlighted_move.png").getImage();
+    public List<JButton> buttons = new ArrayList<>();
 
     private static final Dimension initialDimensions = new Dimension(480, 520);
 
@@ -31,6 +33,7 @@ public class GameBoardPanel extends JPanel {
             for (int j=0;j<boardSize;j++) {
                 JButton button = new TileButton(i, j);
                 button.setPreferredSize(new Dimension(pieceSize, pieceSize));
+                buttons.add(button);
                 this.add(button);
             }
         }
@@ -101,6 +104,12 @@ public class GameBoardPanel extends JPanel {
                     g.drawImage(highlightedMove, validMoves.get(i).col * 60, validMoves.get(i).row * 60, null);
                 }
             }
+        }
+    }
+
+    public void disableAllButtons() {
+        for (int i=0;i<buttons.size();i++) {
+            buttons.get(i).setEnabled(false);
         }
     }
 }

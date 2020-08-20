@@ -15,6 +15,8 @@ public abstract class ChessPiece implements Serializable {
     // TODO: figure out how to filter out moves that put king into check
     public abstract List<Square> validMoves(Board board);
 
+    private static long serialVersionUID = 1L;
+
     public ChessPiece() {}
 
     public ChessPiece(PieceColor color, Square position) {

@@ -1,7 +1,7 @@
 package com.se181.clientmodel;
 
-import com.se181.gui.MainForm;
 import com.se181.datamodel.*;
+import com.se181.gui.MainForm;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -60,55 +60,91 @@ public class Game implements Serializable {
         this.outStream = new ObjectOutputStream(socket.getOutputStream());
         this.outStream.flush();
         this.inStream = new ObjectInputStream(socket.getInputStream());
-
     }
 
-    public connectionResponse connectToServer() throws IOException, ClassNotFoundException {
-        //connectionRequest cReq = new connectionRequest(player.nickname);
-        connectionResponse cRes = new connectionResponse();
-        //try {
-        //    outStream.writeObject(cReq);
-        //} catch(IOException ex) {
-         //   System.out.println("Failed to write connectionRequest.");
-         //   ex.printStackTrace();
-         //   System.exit(1);
-        //}
+    public void connectToServer() throws IOException, ClassNotFoundException {
+        connectionResponse cRes = null;
         try {
-            cRes = (connectionResponse)inStream.readObject();
+            while(cRes == null) {
+                cRes = (connectionResponse) inStream.readObject();
+            }
+            if(!cRes.getConnected()){
+                MainForm.mainForm.connectPanel.displayErrorMessage("Server is full");
+            }
+            if(cRes.getConnected() && !cRes.getHasTwo()){
+                MainForm.mainForm.gamePanel.disableAllButtons();
+                MainForm.mainForm.gamePanel.displayMessage("Waiting for an opponent");
+                cRes = null;
+                while(cRes == null) {
+                    cRes = (connectionResponse) inStream.readObject();
+                }
+                if(cRes.getConnected() && cRes.getHasTwo()){
+                    MainForm.mainForm.gamePanel.enableStartButton();
+                    MainForm.mainForm.gamePanel.displayMessage("Hit \"Start Game\" to play");
+                }
+            }
+            else if(cRes.getConnected() && cRes.getHasTwo()){
+                MainForm.mainForm.gamePanel.enableStartButton();
+                MainForm.mainForm.gamePanel.displayMessage("Hit \"Start Game\" to play");
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read connectionResponse.");
             ex.printStackTrace();
+            MainForm.mainForm.connectPanel.displayErrorMessage("Server is unavailable");
         }
-        return cRes;
     }
 
-    public readyResponse startGame() throws IOException, ClassNotFoundException {
-        readyRequest rReq = new readyRequest(true);
-        readyResponse rRes = new readyResponse();
+    public void startGame() throws IOException, ClassNotFoundException {
+        MainForm.game.player.nickname = MainForm.mainForm.connectPanel.getPlayerNickName();
+        readyRequest req = new readyRequest(true, player.nickname);
+        readyResponse res = null;
         try {
-            outStream.writeObject(rReq);
+            outStream.writeObject(req);
         } catch(IOException ex) {
             System.out.println("Failed to write readyRequest.");
             ex.printStackTrace();
             System.exit(1);
         }
         try {
-            rRes = (readyResponse) inStream.readObject();
+            while(res == null) {
+                res = (readyResponse) inStream.readObject();
+            }
+            if(res.getFirstTurn().equals(player.nickname)){
+                playersTurn = true;
+            }
+            for(int i = 0; i < res.getNickNameList().size(); i++){
+                if(res.getNickNameList().get(i).nickname.equals(player.nickname)){
+                    player.color = res.getNickNameList().get(i).color;
+                }
+                else{
+                    opponent.color = res.getNickNameList().get(i).color;
+                    opponent.nickname = res.getNickNameList().get(i).nickname;
+                }
+            }
+            if (MainForm.game.player.color == BLACK) {
+                MainForm.game.board = MainForm.game.board.flipBoard();
+            }
+            if (playersTurn) {
+                MainForm.mainForm.gamePanel.enableAllTileButtons();
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read readyResponse");
             ex.printStackTrace();
             System.exit(1);
         }
-        return rRes;
     }
 
     public void restartGame() throws IOException, ClassNotFoundException {
-        readyRequest rReq = new readyRequest(!restart);
-        readyResponse rRes = new readyResponse();
+        gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
+        gamePlay res = null;
         try {
-            outStream.writeObject(rReq);
+            outStream.writeObject(req);
+            while(res == null) {
+                res = (gamePlay) inStream.readObject();
+            }
+            MainForm.mainForm.displayRestartPanel(res.hasWon);
         } catch(IOException ex) {
-            System.out.println("Failed to write readyRequest.");
+            System.out.println("Failed to write gamePlay object to restart the game");
             ex.printStackTrace();
             System.exit(1);
         }
@@ -116,22 +152,29 @@ public class Game implements Serializable {
 
     // TODO: really need startNewGame()
 
-    public gamePlay quitGame() throws IOException, ClassNotFoundException {
-        gamePlay gReq = new gamePlay(new Board(), opponent.nickname, opponent.nickname);
+    public void quitGame() throws IOException, ClassNotFoundException {
+        gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
+        gamePlay res = null;
         try {
-            outStream.writeObject(gReq);
+            outStream.writeObject(req);
+            while(res == null) {
+                res = (gamePlay) inStream.readObject();
+            }
+            this.socket.close();
+            MainForm.mainForm.displayWinningPanel(res.hasWon);
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
             System.exit(1);
         }
-        return gReq;
     }
 
     public gamePlay waitForOpponent() throws IOException, ClassNotFoundException {
-        gamePlay gRes = new gamePlay();
+        gamePlay gRes = null;
         try {
-            gRes = (gamePlay) inStream.readObject();
+            while(gRes == null) {
+                gRes = (gamePlay) inStream.readObject();
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read gamePlay");
             ex.printStackTrace();
@@ -140,16 +183,11 @@ public class Game implements Serializable {
         return gRes;
     }
 
-
-    // TODO: make function strictly for client, and one directly for the actual movement of pieces
-
-    // TODO: add check if move captures an enemy piece
-
-    public gamePlay makeMove(Square clickedTile) throws IOException, ClassNotFoundException {
+    public void makeMove(Square clickedTile) {
         if (lastClickedTile == null) {
             lastClickedTile = clickedTile;
             MainForm.mainForm.gamePanel.repaint();
-            return null;
+            return;
         }
 
         PieceSet pieceSet = null;
@@ -170,7 +208,7 @@ public class Game implements Serializable {
 
                     if (opponentMoves.contains(clickedTile)) {
                         System.out.println("In check");
-                        return null;
+                        return;
                     }
                 }
                 PieceColor color =  board.containsPieceAt(clickedTile);
@@ -182,29 +220,34 @@ public class Game implements Serializable {
                 piece.position.col = clickedTile.col;
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
-                return null;
+                return;
             }
         }
         MainForm.mainForm.gamePanel.repaint();
         lastClickedTile = clickedTile;
-        moveHistory.add(clickedTile);
 
-        // TODO: check winning conditions?
         gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
+        playersTurn = false;
+        MainForm.mainForm.gamePanel.disableAllTileButtons();
         try {
             outStream.writeObject(gReq);
+            playersTurn = true;
+            MainForm.mainForm.gamePanel.enableAllTileButtons();
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
             System.exit(1);
         }
-
-        return waitForOpponent();
+        try {
+            this.board = waitForOpponent().chessBoard;
+        } catch (Exception ex) {
+            System.out.println("Failed to update chessBoard from gamePlay response.");
+            ex.printStackTrace();
+        }
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
 
-        // TODO: Uncomment when valid pieces is defined
         List<Square> validMoves = piece.validMoves(this.board);
         for (int i=0;i<validMoves.size();i++) {
             if (validMoves.get(i).row == dst.row && validMoves.get(i).col == dst.col) {
