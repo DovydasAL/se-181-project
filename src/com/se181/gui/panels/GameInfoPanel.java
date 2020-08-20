@@ -14,10 +14,11 @@ public class GameInfoPanel extends JPanel {
     private JLabel timerPlayer1;
     private JLabel player2;
     private JLabel timerPlayer2;
-    private JButton startGame;
+    public JButton startGame;
     private JButton restartGame;
     private JButton resign;
     private JButton help;
+    private JLabel message;
 
     private static final Dimension initialDimensions = new Dimension(370, 520);
 
@@ -74,5 +75,22 @@ public class GameInfoPanel extends JPanel {
         resign = new JButton("Resign");
         resign.addActionListener(new ResignButtonListener());
         this.add(resign, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 6;
+        message = new JLabel("");
+        this.add(message, constraints);
+
+    }
+
+    public void disableAllButtons() {
+        startGame.setEnabled(false);
+        resign.setEnabled(false);
+        restartGame.setEnabled(false);
+        help.setEnabled(false);
+    }
+
+    public void displayMessage(String message) {
+        this.message.setText(message);
     }
 }

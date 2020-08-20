@@ -10,5 +10,6 @@ public class QuitButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         //TODO: terminate the application
+        System.exit(0);
     }
 }

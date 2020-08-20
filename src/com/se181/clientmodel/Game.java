@@ -2,7 +2,6 @@ package com.se181.clientmodel;
 
 import com.se181.datamodel.*;
 import com.se181.gui.MainForm;
-import com.sun.tools.javac.Main;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -70,30 +69,33 @@ public class Game implements Serializable {
                 cRes = (connectionResponse) inStream.readObject();
             }
             if(!cRes.getConnected()){
-                //TODO: stay at the connectionPanel and display a message that the server is full (already have two clients connecting to the server)
+                MainForm.mainForm.connectPanel.displayErrorMessage("Server is full");
             }
             if(cRes.getConnected() && !cRes.getHasTwo()){
-                //TODO: go to the gamePlayPanel; deactivate all the buttons ( four buttons and all of the TileButtons); display a message "Waiting for an opponent"
+                MainForm.mainForm.gamePanel.disableAllButtons();
+                MainForm.mainForm.gamePanel.displayMessage("Waiting for an opponent");
                 cRes = null;
                 while(cRes == null) {
                     cRes = (connectionResponse) inStream.readObject();
                 }
                 if(cRes.getConnected() && cRes.getHasTwo()){
-                    //TODO: stay in the gamePlayPanel ; activate "Start game" button ; display a message "Hit "Start game" to play"
+                    MainForm.mainForm.gamePanel.enableStartButton();
+                    MainForm.mainForm.gamePanel.displayMessage("Hit \"Start Game\" to play");
                 }
             }
             else if(cRes.getConnected() && cRes.getHasTwo()){
-                //TODO: stay in the gamePlayPanel ; activate "Start game" ; display a message "Hit "Start game" to play"
+                MainForm.mainForm.gamePanel.enableStartButton();
+                MainForm.mainForm.gamePanel.displayMessage("Hit \"Start Game\" to play");
             }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read connectionResponse.");
             ex.printStackTrace();
-            //TODO: stay at the connectionPanel ; display a message "The server is not available."
+            MainForm.mainForm.connectPanel.displayErrorMessage("Server is unavailable");
         }
     }
 
     public void startGame() throws IOException, ClassNotFoundException {
-        //TODO: get the nick from the textbox in connectionPanel and assign it to player.nickname
+        MainForm.game.player.nickname = MainForm.mainForm.connectPanel.getPlayerNickName();
         readyRequest req = new readyRequest(true, player.nickname);
         readyResponse res = null;
         try {
@@ -119,7 +121,12 @@ public class Game implements Serializable {
                     opponent.nickname = res.getNickNameList().get(i).nickname;
                 }
             }
-            //TODO: render chess pieces basing on player.color ; activate all of TileButtons if playersTurn == true
+            if (MainForm.game.player.color == BLACK) {
+                MainForm.game.board = MainForm.game.board.flipBoard();
+            }
+            if (playersTurn) {
+                MainForm.mainForm.gamePanel.enableAllTileButtons();
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read readyResponse");
             ex.printStackTrace();
@@ -135,8 +142,7 @@ public class Game implements Serializable {
             while(res == null) {
                 res = (gamePlay) inStream.readObject();
             }
-            //TODO: display the restart panel and the winning message (the winner's nickname can be retrieved from res.hasWon; however, create "OK" button on the restart panel
-            //TODO: create a listener for "OK" button that when the players click on "OK" button, reinitialize the game by resetting game.board to the default (reset the positions of chess pieces) and using player.color to decide who goes first by activating/deactivating TileButtons.
+            MainForm.mainForm.displayRestartPanel(res.hasWon);
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay object to restart the game");
             ex.printStackTrace();
@@ -155,8 +161,7 @@ public class Game implements Serializable {
                 res = (gamePlay) inStream.readObject();
             }
             this.socket.close();
-            //TODO: display the winning panel and the winning message (the winner's nickname can be retrieved from res.hasWon); hide "OK" button and only show "QUIT" button
-            //TODO: create a listener for "QUIT" button that when the players click on "QUIT" button, the application will be terminated
+            MainForm.mainForm.displayWinningPanel(res.hasWon);
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
@@ -177,10 +182,6 @@ public class Game implements Serializable {
         }
         return gRes;
     }
-
-    // TODO: make function strictly for client, and one directly for the actual movement of pieces
-
-    // TODO: add check if move captures an enemy piece
 
     public void makeMove(Square clickedTile) {
         if (lastClickedTile == null) {
@@ -227,18 +228,17 @@ public class Game implements Serializable {
 
         gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
         playersTurn = false;
-        //TODO: deactivate all of TileButtonss
+        MainForm.mainForm.gamePanel.disableAllTileButtons();
         try {
             outStream.writeObject(gReq);
             playersTurn = true;
-            //TODO: activate all of TileButtons
+            MainForm.mainForm.gamePanel.enableAllTileButtons();
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
             System.exit(1);
         }
         try {
-            //TODO: since the this.board is set to the new board object received from the server, update the chessboard in the gamePlayPanel using this.board
             this.board = waitForOpponent().chessBoard;
         } catch (Exception ex) {
             System.out.println("Failed to update chessBoard from gamePlay response.");
@@ -248,7 +248,6 @@ public class Game implements Serializable {
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
 
-        // TODO: Uncomment when valid pieces is defined
         List<Square> validMoves = piece.validMoves(this.board);
         for (int i=0;i<validMoves.size();i++) {
             if (validMoves.get(i).row == dst.row && validMoves.get(i).col == dst.col) {
