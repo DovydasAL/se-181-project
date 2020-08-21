@@ -20,14 +20,14 @@ public class Server {
             Socket player1  = listener.accept();
             ObjectOutputStream outStream = new ObjectOutputStream(player1.getOutputStream());
             outStream.flush();
-            var connResponse = new connectionResponse(true);
+            connectionResponse connResponse = new connectionResponse(true);
             System.out.println("Connected:  "+ player1);
             outStream.writeObject(connResponse);
             outStream.flush();
             Socket player2 = listener.accept();
             System.out.println("Connected:  "+ player2);
             ObjectOutputStream outStream1 = new ObjectOutputStream(player2.getOutputStream());
-            var connResponse1 = new connectionResponse(true);
+            connectionResponse connResponse1 = new connectionResponse(true);
 
             outStream1.writeObject(connResponse1);
             outStream1.flush();

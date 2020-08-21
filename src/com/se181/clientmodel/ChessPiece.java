@@ -9,6 +9,7 @@ public abstract class ChessPiece implements Serializable {
     public PieceColor color;
     public Square position;
     public boolean Captured;
+    public boolean hasMoved = false;
 
     private static long serialVersionUID = 1L;
 

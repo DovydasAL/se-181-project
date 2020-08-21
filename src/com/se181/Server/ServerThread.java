@@ -49,18 +49,18 @@ public class ServerThread implements Runnable{
         try {
             fromPlayer1 = new ObjectInputStream(this.Player1.getInputStream());
             fromPlayer2 = new ObjectInputStream(this.Player2.getInputStream());
-            var rReq1 = (readyRequest)fromPlayer1.readObject();
-            var cRes2 = new connectionResponse(true);
+            readyRequest rReq1 = (readyRequest)fromPlayer1.readObject();
+            connectionResponse cRes2 = new connectionResponse(true);
             cRes2.setHasTwo(true);
             toPlayer2.writeObject(cRes2);
             toPlayer2.flush();
-            var rReq2 = (readyRequest)fromPlayer2.readObject();
+            readyRequest rReq2 = (readyRequest)fromPlayer2.readObject();
             Player p1 = new Player(PieceColor.WHITE,rReq1.getNickName());
             this.whoTurn = rReq1.getNickName();
             Player p2 = new Player(PieceColor.BLACK,rReq2.getNickName());
             players.add(p1);
             players.add(p2);
-            var rResp = new readyResponse();
+            readyResponse rResp = new readyResponse();
             rResp.setNickNameList(players);
             rResp.setFirstTurn(p1.nickname);
             toPlayer1.writeObject(rResp);
@@ -77,14 +77,14 @@ public class ServerThread implements Runnable{
                     this.whoTurn = players.get(0).nickname;
                 }
                 if(classifyRequest(gameplay) == 3){
-                    var gRes = (gamePlay)gameplay;
+                    gamePlay gRes = (gamePlay)gameplay;
                     System.out.println(gRes.nextTurn);
                     toPlayer1.writeObject(gRes);
                     toPlayer1.flush();
                     toPlayer2.writeObject(gRes);
                     toPlayer2.flush();
                 }else if(classifyRequest(gameplay) == 4){
-                    var qRes = new quit();
+                    quit qRes = new quit();
                     qRes.setQuit(true);
                     toPlayer1.writeObject(qRes);
                     toPlayer1.flush();

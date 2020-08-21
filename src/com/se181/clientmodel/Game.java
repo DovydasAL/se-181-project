@@ -2,6 +2,7 @@ package com.se181.clientmodel;
 
 import com.se181.datamodel.*;
 import com.se181.gui.MainForm;
+import com.se181.gui.listeners.ServerListenerThread;
 
 import java.awt.*;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.se181.clientmodel.PieceColor.BLACK;
 import static com.se181.clientmodel.PieceColor.WHITE;
@@ -126,20 +129,24 @@ public class Game implements Serializable {
                 MainForm.game.board = MainForm.game.board.flipBoard();
                 MainForm.mainForm.gamePanel.repaint();
             }
-            if (playersTurn) {
-                MainForm.mainForm.gamePanel.enableAllTileButtons();
-            }else{
-                gamePlay gamePlayRes = waitForOpponent();
-                //if(player.color == BLACK){
-                    this.board = gamePlayRes.getChessBoard().flipBoard();
-                //}else {
-                //    this.board = gamePlayRes.getChessBoard();
-                //}
-
-                MainForm.mainForm.gamePanel.repaint();
-                MainForm.mainForm.gamePanel.enableAllTileButtons();
-
-            }
+            ServerListenerThread listenerThread = new ServerListenerThread(player.color);
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(listenerThread);
+            // New thread of alternating turns
+//            if (playersTurn) {
+//                MainForm.mainForm.gamePanel.enableAllTileButtons();
+//            }else{
+//                gamePlay gamePlayRes = waitForOpponent();
+//                //if(player.color == BLACK){
+//                    this.board = gamePlayRes.getChessBoard().flipBoard();
+//                //}else {
+//                //    this.board = gamePlayRes.getChessBoard();
+//                //}
+//
+//                MainForm.mainForm.gamePanel.repaint();
+//                MainForm.mainForm.gamePanel.enableAllTileButtons();
+//
+//            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Failed to read readyResponse");
             ex.printStackTrace();
@@ -211,20 +218,21 @@ public class Game implements Serializable {
         else if (player.color == BLACK) {
             pieceSet = board.blackSet;
         }
+        boolean madeAMove;
         Board flippedBoard = this.board.flipBoard();
         for (int i=0;i<pieceSet.pieces.size();i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
             if (piece.position.row == lastClickedTile.row && piece.position.col == lastClickedTile.col && isValidMove(piece, clickedTile)) {
-                if (piece instanceof King) {
-                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleAttackMove(this.opponent.color);
-                    System.out.println(opponentMoves.get(0).row);
-                    System.out.println(opponentMoves.get(0).col);
-
-                    if (opponentMoves.contains(clickedTile)) {
-                        System.out.println("In check");
-                        return;
-                    }
-                }
+//                if (piece instanceof King) {
+//                    List<Square> opponentMoves = flippedBoard.calculateAllPossibleAttackMove(this.opponent.color);
+//                    System.out.println(opponentMoves.get(0).row);
+//                    System.out.println(opponentMoves.get(0).col);
+//
+//                    if (opponentMoves.contains(clickedTile)) {
+//                        System.out.println("In check");
+//                        return;
+//                    }
+//                }
                 PieceColor color =  board.containsPieceAt(clickedTile);
                 if (color != null) {
                     ChessPiece opponent = board.getPieceAt(clickedTile, color);
@@ -234,35 +242,20 @@ public class Game implements Serializable {
                 piece.position.col = clickedTile.col;
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
-                break;
+                gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
+
+                try {
+                    outStream.writeObject(gReq);
+                } catch(IOException ex) {
+                    System.out.println("Failed to write gamePlay");
+                    ex.printStackTrace();
+                    System.exit(1);
+                }
+                return;
             }
         }
-        //MainForm.mainForm.gamePanel.repaint();
-        //lastClickedTile = clickedTile;
-        gamePlay gReq;
-        //if(player.color == BLACK){
-            //gReq = new gamePlay(this.board.flipBoard(), "", opponent.nickname);
-        //}else {
-            gReq = new gamePlay(this.board, "", opponent.nickname);
-        //}
-
-        playersTurn = false;
-        MainForm.mainForm.gamePanel.disableAllTileButtons();
-        try {
-            outStream.writeObject(gReq);
-            playersTurn = true;
-
-        } catch(IOException ex) {
-            System.out.println("Failed to write gamePlay");
-            ex.printStackTrace();
-            System.exit(1);
-        }
-        try {
-            this.board = waitForOpponent().chessBoard;
-        } catch (Exception ex) {
-            System.out.println("Failed to update chessBoard from gamePlay response.");
-            ex.printStackTrace();
-        }
+        lastClickedTile = clickedTile;
+        MainForm.mainForm.gamePanel.repaint();
     }
 
     public boolean isValidMove(ChessPiece piece, Square dst) {

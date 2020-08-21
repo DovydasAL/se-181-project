@@ -11,6 +11,7 @@ public class BoardTileListener implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
         TileButton button = (TileButton) event.getSource();
+        System.out.println("Test");
         MainForm.game.makeMove(new Square(button.row, button.col));
     }
 }
