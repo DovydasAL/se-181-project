@@ -69,4 +69,11 @@ public class ConnectPanel extends JPanel {
 
     }
 
+    public void displayErrorMessage(String message) {
+        notificationLabel.setText(message);
+    }
+
+    public String getPlayerNickName() {
+        return this.nickNameArea.getText();
+    }
 }

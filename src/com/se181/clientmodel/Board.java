@@ -23,14 +23,16 @@ public class Board implements Serializable {
     public PieceColor containsPieceAt(Square position) {
         for (int i=0;i<whiteSet.pieces.size();i++) {
             Square piecePosition = whiteSet.pieces.get(i).position;
-            if (piecePosition.row == position.row && piecePosition.col == position.col) {
+            ChessPiece piece = getPieceAt(piecePosition, WHITE);
+            if (piecePosition.row == position.row && piecePosition.col == position.col && piece != null) {
                 return WHITE;
             }
         }
 
         for (int i=0;i<blackSet.pieces.size();i++) {
             Square piecePosition = blackSet.pieces.get(i).position;
-            if (piecePosition.row == position.row && piecePosition.col == position.col) {
+            ChessPiece piece = getPieceAt(piecePosition, BLACK);
+            if (piecePosition.row == position.row && piecePosition.col == position.col && piece != null) {
                 return BLACK;
             }
         }
@@ -43,11 +45,11 @@ public class Board implements Serializable {
         flippedBoard.blackSet = this.blackSet.shallowCopy();
         for (int i=0;i<flippedBoard.whiteSet.pieces.size();i++) {
             ChessPiece piece = flippedBoard.whiteSet.pieces.get(i);
-            piece.position.row = (piece.position.row >= 4) ? (piece.position.row + 7) % 7 : 7 - piece.position.row;
+            piece.position.row = (piece.position.row >= 4) ? 4 - piece.position.row + 3 : 7 - piece.position.row;
         }
         for (int i=0;i<flippedBoard.blackSet.pieces.size();i++) {
             ChessPiece piece = flippedBoard.blackSet.pieces.get(i);
-            piece.position.row = (piece.position.row >= 4) ? (piece.position.row + 7) % 7 : 7 - piece.position.row;
+            piece.position.row = (piece.position.row >= 4) ? 4 - piece.position.row + 3 : 7 - piece.position.row;
         }
         return flippedBoard;
     }
@@ -87,7 +89,7 @@ public class Board implements Serializable {
             pieceSet = blackSet;
         for (int i=0;i<pieceSet.pieces.size();i++) {
             ChessPiece piece = pieceSet.pieces.get(i);
-            if (piece.position.row == position.row && piece.position.col == position.col) {
+            if (piece.position.row == position.row && piece.position.col == position.col && !piece.Captured) {
                 return piece;
             }
         }

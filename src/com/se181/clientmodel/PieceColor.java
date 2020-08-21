@@ -1,6 +1,8 @@
 package com.se181.clientmodel;
 
-public enum PieceColor {
+import java.io.Serializable;
+
+public enum PieceColor implements Serializable {
     WHITE,
     BLACK
 }
