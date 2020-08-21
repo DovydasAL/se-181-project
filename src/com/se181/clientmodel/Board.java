@@ -69,7 +69,7 @@ public class Board implements Serializable {
                 allValidMoves.addAll(validMoves);
             }
             else {
-                List<Square> validMoves = piece.validMoves(this);
+                List<Square> validMoves = piece.getValidMoves(this);
                 allValidMoves.addAll(validMoves);
             }
         }

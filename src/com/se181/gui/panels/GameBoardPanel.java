@@ -43,7 +43,9 @@ public class GameBoardPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(boardImage, 0, 0, null);
-
+        if (MainForm.game.kingInCheck != null) {
+            drawKingHighlight(MainForm.game.kingInCheck, g);
+        }
         // draw the pieces
         for (int i=0;i< MainForm.game.board.whiteSet.pieces.size();i++) {
             ChessPiece piece = MainForm.game.board.whiteSet.pieces.get(i);
@@ -59,6 +61,22 @@ public class GameBoardPanel extends JPanel {
         }
 
         drawPossibleMoves(g);
+    }
+
+    public void drawKingHighlight(PieceColor color, Graphics g) {
+        PieceSet set;
+        if (color == WHITE)
+            set = MainForm.game.board.whiteSet;
+        else
+            set = MainForm.game.board.blackSet;
+        Square kingPosition = null;
+        for (int i=0;i<set.pieces.size();i++) {
+            if (set.pieces.get(i) instanceof King) {
+                kingPosition = set.pieces.get(i).position;
+            }
+        }
+        Image image = new ImageIcon("resources/game_images/highlight_king.png").getImage();
+        g.drawImage(image, kingPosition.col * 60 , kingPosition.row * 60, null);
     }
 
     public void drawPiece(Object piece, Graphics g) {
@@ -99,7 +117,7 @@ public class GameBoardPanel extends JPanel {
         if (MainForm.game.lastClickedTile != null && MainForm.game.board.containsPieceAt(MainForm.game.lastClickedTile) == MainForm.game.player.color) {
             ChessPiece piece = MainForm.game.board.getPieceAt(MainForm.game.lastClickedTile, MainForm.game.player.color);
             if (piece != null) {
-                List<Square> validMoves = piece.validMoves(MainForm.game.board);
+                List<Square> validMoves = piece.getValidMoves(MainForm.game.board);
                 for (int i=0;i<validMoves.size();i++) {
                     g.drawImage(highlightedMove, validMoves.get(i).col * 60, validMoves.get(i).row * 60, null);
                 }

@@ -4,6 +4,9 @@ import com.se181.Server.Server;
 import com.se181.clientmodel.PieceColor;
 import com.se181.gui.MainForm;
 
+import static com.se181.clientmodel.PieceColor.BLACK;
+import static com.se181.clientmodel.PieceColor.WHITE;
+
 public class ServerListenerThread implements Runnable {
     public PieceColor color;
 
@@ -13,7 +16,7 @@ public class ServerListenerThread implements Runnable {
 
     @Override
     public void run() {
-        if (color == PieceColor.WHITE) {
+        if (color == WHITE) {
             while (true) {
                 // My Move
                 MainForm.mainForm.gamePanel.enableAllTileButtons();
@@ -29,7 +32,16 @@ public class ServerListenerThread implements Runnable {
                 // Opponent Move
                 try {
                     MainForm.game.board = MainForm.game.waitForOpponent().chessBoard.flipBoard();
+                    if (MainForm.game.kingInCheck(WHITE)) {
+                        MainForm.game.kingInCheck = WHITE;
+                    }
+                    else {
+                        MainForm.game.kingInCheck = null;
+                    }
                     MainForm.mainForm.gamePanel.repaint();
+                    if (MainForm.game.hasNoMoves(color)) {
+                        // TODO: This is checkmate
+                    }
                 }
                 catch (Exception e) {
                     System.out.println("Failed to read opponent move as white from ServerListenerThread");
@@ -44,7 +56,16 @@ public class ServerListenerThread implements Runnable {
                 MainForm.mainForm.gamePanel.disableAllTileButtons();
                 try {
                     MainForm.game.board = MainForm.game.waitForOpponent().chessBoard.flipBoard();
+                    if (MainForm.game.kingInCheck(BLACK)) {
+                        MainForm.game.kingInCheck = BLACK;
+                    }
+                    else {
+                        MainForm.game.kingInCheck = null;
+                    }
                     MainForm.mainForm.gamePanel.repaint();
+                    if (MainForm.game.hasNoMoves(color)) {
+                        // TODO: This is checkmate
+                    }
                 }
                 catch (Exception e) {
                     System.out.println("Failed to read my move as white from ServerListenerThread");

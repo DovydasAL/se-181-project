@@ -32,6 +32,8 @@ public class Game implements Serializable {
     public ObjectOutputStream outStream;
     public ObjectInputStream inStream;
 
+    public PieceColor kingInCheck = null;
+
     private static long serialVersionUID = 1L;
 
     //Default constructor
@@ -240,6 +242,10 @@ public class Game implements Serializable {
                 }
                 piece.position.row = clickedTile.row;
                 piece.position.col = clickedTile.col;
+                if (piece instanceof Pawn && piece.position.row == 0) {
+                    pieceSet.pieces.add(new Queen(piece.color, piece.position));
+                    pieceSet.pieces.remove(piece);
+                }
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
                 gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
@@ -251,6 +257,12 @@ public class Game implements Serializable {
                     ex.printStackTrace();
                     System.exit(1);
                 }
+                if (MainForm.game.kingInCheck(opponent.color)) {
+                    MainForm.game.kingInCheck = opponent.color;
+                }
+                else {
+                    MainForm.game.kingInCheck = null;
+                }
                 return;
             }
         }
@@ -260,13 +272,27 @@ public class Game implements Serializable {
 
     public boolean isValidMove(ChessPiece piece, Square dst) {
 
-        List<Square> validMoves = piece.validMoves(this.board);
+        List<Square> validMoves = piece.getValidMoves(this.board);
         for (int i=0;i<validMoves.size();i++) {
             if (validMoves.get(i).row == dst.row && validMoves.get(i).col == dst.col) {
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean hasNoMoves(PieceColor color) {
+        PieceSet pieceSet;
+        List<Square> validMoves = new ArrayList<>();
+        if (color == WHITE)
+            pieceSet = this.board.whiteSet;
+        else
+            pieceSet = this.board.blackSet;
+        for (int i=0;i<pieceSet.pieces.size();i++) {
+            ChessPiece piece = pieceSet.pieces.get(i);
+            validMoves.addAll(piece.getValidMoves(this.board));
+        }
+        return validMoves.size() == 0;
     }
 
     public Square getLastClickedTile() {
@@ -280,4 +306,49 @@ public class Game implements Serializable {
     public ArrayList<Square> getMoveHistory() {
         return moveHistory;
     }
+
+    public boolean kingInCheck(PieceColor colorOfKing) {
+        Board flippedBoard = board.flipBoard();
+        // Find color king
+        PieceSet pieceSet;
+        PieceSet opponentSet;
+        if (colorOfKing == WHITE) {
+            pieceSet = flippedBoard.whiteSet;
+            opponentSet = flippedBoard.blackSet;
+        }
+        else {
+            pieceSet = flippedBoard.blackSet;
+            opponentSet = flippedBoard.whiteSet;
+        }
+        ChessPiece king = null;
+        for (int i=0;i<pieceSet.pieces.size();i++) {
+            ChessPiece piece = pieceSet.pieces.get(i);
+            if (piece instanceof King) {
+                king = piece;
+            }
+        }
+        List<Square> validAttacks = new ArrayList<>();
+        for (int j=0;j<opponentSet.pieces.size();j++) {
+            ChessPiece piece = opponentSet.pieces.get(j);
+            if (piece.Captured)
+                continue;
+            if (piece instanceof Pawn) {
+                validAttacks.add(new Square(piece.position.row - 1, piece.position.col - 1));
+                validAttacks.add(new Square(piece.position.row - 1, piece.position.col + 1));
+            }
+            else {
+                validAttacks.addAll(opponentSet.pieces.get(j).validMoves(flippedBoard));
+            }
+        }
+        for (int j=0;j<validAttacks.size();j++) {
+            Square attack = validAttacks.get(j);
+            if (attack.row == king.position.row && attack.col == king.position.col) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
 }
