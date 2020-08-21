@@ -31,5 +31,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter:5.6.2" level="project" />
   </component>
 </module>

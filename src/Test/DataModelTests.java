@@ -1,3 +1,5 @@
+package Test;
+
 import com.se181.clientmodel.Board;
 import com.se181.clientmodel.PieceColor;
 import com.se181.clientmodel.Player;
@@ -9,28 +11,30 @@ import java.util.List;
 
 public class DataModelTests {
 
-    @Test
-    void connectionRequestTest(){
-    //regular constructor
-    connectionRequest CR = new connectionRequest();
-    //Parameterized constructor
-    connectionRequest CRName = new connectionRequest("Johnny");
-    CRName.getNickName();
-    //set nickname is not public so cant be tested here
-    //CR.setNickName("johnny");
+    //TODO: Do we need these anymore?
 
-    }
-
-    @Test
-    void connectionResponseTest(){
-        //regular constructor
-        connectionResponse CR = new connectionResponse();
-       //Parameterized constructor
-        connectionResponse CRP = new connectionResponse(false);
-        CRP.getConnected();
-        CRP.setConnected(true);
-
-    }
+//    @Test
+//    void connectionRequestTest(){
+//    //regular constructor
+//    connectionRequest CR = new connectionRequest();
+//    //Parameterized constructor
+//    connectionRequest CRName = new connectionRequest("Johnny");
+//    CRName.getNickName();
+//    //set nickname is not public so cant be tested here
+//    //CR.setNickName("johnny");
+//
+//    }
+//
+//    @Test
+//    void connectionResponseTest(){
+//        //regular constructor
+//        connectionResponse CR = new connectionResponse();
+//       //Parameterized constructor
+//        connectionResponse CRP = new connectionResponse(false);
+//        CRP.getConnected();
+//        CRP.setConnected(true);
+//
+//    }
 
 
     @Test
@@ -65,7 +69,7 @@ public class DataModelTests {
     void readyRequestTest(){
         readyRequest RQ = new readyRequest();
         //Parameterized constructor
-        readyRequest RQP = new readyRequest(true);
+        readyRequest RQP = new readyRequest(true, "");
         RQP.getReady();
         //set ready is private will need to make public to test here
         //RQP.setReady(true);
