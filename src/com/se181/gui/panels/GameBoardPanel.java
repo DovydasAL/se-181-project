@@ -113,7 +113,7 @@ public class GameBoardPanel extends JPanel {
     }
 
     public void drawPossibleMoves(Graphics g) {
-        System.out.println(MainForm.game.player.color);
+        //System.out.println(MainForm.game.player.color);
         if (MainForm.game.lastClickedTile != null && MainForm.game.board.containsPieceAt(MainForm.game.lastClickedTile) == MainForm.game.player.color) {
             ChessPiece piece = MainForm.game.board.getPieceAt(MainForm.game.lastClickedTile, MainForm.game.player.color);
             if (piece != null) {

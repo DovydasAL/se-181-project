@@ -11,6 +11,7 @@ public class gamePlay implements Serializable {
     public String hasWon;
     // keep track who will make the next move
     public String nextTurn;
+    public String message;
     private static long serialVersionUID = 1L;
 
     //Default constructor
