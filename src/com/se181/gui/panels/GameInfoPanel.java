@@ -17,7 +17,7 @@ public class GameInfoPanel extends JPanel {
     public JButton startGame;
     private JButton restartGame;
     private JButton resign;
-    private JButton help;
+    public JButton help;
     private JLabel message;
 
     private static final Dimension initialDimensions = new Dimension(370, 520);
