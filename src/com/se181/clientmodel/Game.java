@@ -131,6 +131,7 @@ public class Game implements Serializable {
                 MainForm.game.board = MainForm.game.board.flipBoard();
                 MainForm.mainForm.gamePanel.repaint();
             }
+            MainForm.mainForm.gamePanel.enableAllButtons();
             ServerListenerThread listenerThread = new ServerListenerThread(player.color);
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(listenerThread);

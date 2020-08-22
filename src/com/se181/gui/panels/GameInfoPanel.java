@@ -90,6 +90,13 @@ public class GameInfoPanel extends JPanel {
         help.setEnabled(false);
     }
 
+    public void enableAllButtons() {
+        startGame.setEnabled(true);
+        resign.setEnabled(true);
+        restartGame.setEnabled(true);
+        help.setEnabled(true);
+    }
+
     public void displayMessage(String message) {
         this.message.setText(message);
     }

@@ -49,4 +49,9 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public void enableAllButtons() {
+        enableAllTileButtons();
+        gameInfoPanel.enableAllButtons();
+    }
+
 }
