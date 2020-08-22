@@ -133,6 +133,7 @@ public class Game implements Serializable {
                     opponent.nickname = res.getNickNameList().get(i).nickname;
                 }
             }
+            MainForm.mainForm.gamePanel.setPlayersInfo(player, opponent);
             if (MainForm.game.player.color == BLACK) {
                 MainForm.game.board = MainForm.game.board.flipBoard();
                 MainForm.mainForm.gamePanel.repaint();

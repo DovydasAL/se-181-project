@@ -1,5 +1,7 @@
 package com.se181.gui.panels;
 
+import com.se181.clientmodel.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,7 +32,7 @@ public class GamePanel extends JPanel {
     }
 
     public void displayMessage(String message) {
-        gameInfoPanel.displayMessage(message);
+        gameInfoPanel.displayMessage("<html>" + message + "</html>");
     }
 
     public void enableStartButton() {
@@ -78,4 +80,7 @@ public class GamePanel extends JPanel {
         gameInfoPanel.enableResignButton();
     }
 
+    public void setPlayersInfo(Player player, Player opponent) {
+        gameInfoPanel.setPlayersInfo(player, opponent);
+    }
 }

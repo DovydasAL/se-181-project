@@ -1,5 +1,7 @@
 package com.se181.gui.panels;
 
+import com.se181.clientmodel.PieceColor;
+import com.se181.clientmodel.Player;
 import com.se181.gui.listeners.HelpButtonListener;
 import com.se181.gui.listeners.ResignButtonListener;
 import com.se181.gui.listeners.RestartGameListener;
@@ -37,20 +39,20 @@ public class GameInfoPanel extends JPanel {
         player1 = new JLabel("Player 1 Name");
         this.add(player1, constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        timerPlayer1 = new JLabel("5:00");
-        this.add(timerPlayer1, constraints);
+//        constraints.gridx = 0;
+//        constraints.gridy = 1;
+//        timerPlayer1 = new JLabel("5:00");
+//        this.add(timerPlayer1, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 2;
         player2 = new JLabel("Player 2 Name");
         this.add(player2, constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        timerPlayer2 = new JLabel("5:00");
-        this.add(timerPlayer2, constraints);
+//        constraints.gridx = 0;
+//        constraints.gridy = 3;
+//        timerPlayer2 = new JLabel("5:00");
+//        this.add(timerPlayer2, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 4;
@@ -78,9 +80,17 @@ public class GameInfoPanel extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridy = 6;
+        constraints.gridwidth = 2;
         message = new JLabel("Finding a match...");
         this.add(message, constraints);
 
+    }
+
+    public void setPlayersInfo(Player player, Player opponent) {
+        String player1Color = player.color == PieceColor.WHITE ? "White" : "Black";
+        String player2Color = opponent.color == PieceColor.WHITE ? "White" : "Black";
+        player1.setText(opponent.nickname + " - " + player2Color);
+        player2.setText(player.nickname + " - " + player1Color);
     }
 
     public void disableAllButtons() {

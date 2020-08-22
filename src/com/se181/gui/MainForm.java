@@ -1,6 +1,7 @@
 package com.se181.gui;
 
 import com.se181.clientmodel.Game;
+import com.se181.clientmodel.Player;
 import com.se181.gui.panels.*;
 
 import javax.swing.*;
@@ -60,5 +61,6 @@ public class MainForm extends JFrame {
     public void closeRestartPanel(){
         winningPanel.dispose();
     }
+
 
 }
