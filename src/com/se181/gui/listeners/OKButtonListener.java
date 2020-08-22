@@ -1,5 +1,6 @@
 package com.se181.gui.listeners;
 
+import com.se181.clientmodel.Board;
 import com.se181.clientmodel.Game;
 import com.se181.clientmodel.Player;
 import com.se181.gui.MainForm;
@@ -14,17 +15,7 @@ public class OKButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            Player player = MainForm.game.player;
-            Player opponent = MainForm.game.opponent;
-            MainForm.game = new Game();
-            MainForm.game.player = player;
-            MainForm.game.opponent = opponent;
-            if (MainForm.game.player.color == WHITE) {
-                MainForm.mainForm.gamePanel.enableAllTileButtons();
-            }
-            else {
-                MainForm.mainForm.gamePanel.disableAllTileButtons();
-            }
+
         } catch(Exception ex) {
             System.out.println("Failed to restart the game");
             ex.printStackTrace();

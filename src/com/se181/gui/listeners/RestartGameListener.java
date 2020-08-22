@@ -10,6 +10,7 @@ public class RestartGameListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try{
+            //MainForm.mainForm.gamePanel.disableAllTileButtons();
             MainForm.game.restartGame();
         } catch(Exception ex){
             System.out.println("Failed to restart a game");

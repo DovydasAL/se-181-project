@@ -37,6 +37,22 @@ public class GamePanel extends JPanel {
         this.gameInfoPanel.startGame.setEnabled(true);
     }
 
+    public void enableStartGameButton() {
+        gameInfoPanel.enableStartGameButton();
+    }
+
+    public void disableStartGameButton() {
+        gameInfoPanel.disableStartGameButton();
+    }
+
+    public void enableReStartButton() {
+        gameInfoPanel.enableRestartButton();
+    }
+
+    public void disableRestartGame() {
+        gameInfoPanel.disableRestartButton();
+    }
+
     public void enableAllTileButtons() {
         for (int i=0;i<gameBoardPanel.buttons.size();i++) {
             gameBoardPanel.buttons.get(i).setEnabled(true);
@@ -52,6 +68,14 @@ public class GamePanel extends JPanel {
     public void enableAllButtons() {
         enableAllTileButtons();
         gameInfoPanel.enableAllButtons();
+    }
+
+    public void disableResignButton() {
+        gameInfoPanel.disableResignButton();
+    }
+
+    public void enableResignButton() {
+        gameInfoPanel.enableResignButton();
     }
 
 }

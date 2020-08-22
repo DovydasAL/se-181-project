@@ -78,7 +78,7 @@ public class GameInfoPanel extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridy = 6;
-        message = new JLabel("");
+        message = new JLabel("Finding a match...");
         this.add(message, constraints);
 
     }
@@ -95,6 +95,31 @@ public class GameInfoPanel extends JPanel {
         resign.setEnabled(true);
         restartGame.setEnabled(true);
         help.setEnabled(true);
+    }
+
+    public void enableStartGameButton() {
+        startGame.setEnabled(true);
+    }
+
+    public void disableStartGameButton() {
+        startGame.setEnabled(false);
+    }
+
+    public void enableRestartButton() {
+        restartGame.setEnabled(true);
+    }
+
+    public void disableRestartButton() {
+        restartGame.setEnabled(false);
+    }
+
+
+    public void disableResignButton() {
+        resign.setEnabled(false);
+    }
+
+    public void enableResignButton() {
+        resign.setEnabled(true);
     }
 
     public void displayMessage(String message) {

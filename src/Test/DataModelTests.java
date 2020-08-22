@@ -45,7 +45,7 @@ public class DataModelTests {
         //Parameterized constructor
         //parameters
         Board chessBoard = new Board();
-        gamePlay GPP = new gamePlay(chessBoard,"yes","Black");
+        gamePlay GPP = new gamePlay(chessBoard,"yes","Black", false);
 
         //methods
         GPP.getChessBoard();
@@ -54,6 +54,8 @@ public class DataModelTests {
         GP.setHasWon("yes");
         GP.getNextTurn();
         GP.setNextTurn("White");
+        GP.getRestart();
+        GP.setRestart(false);
 
 
     }

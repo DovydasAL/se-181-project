@@ -34,6 +34,8 @@ public class Game implements Serializable {
 
     public PieceColor kingInCheck = null;
 
+    public ServerListenerThread listenerThread;
+
     private static long serialVersionUID = 1L;
 
     //Default constructor
@@ -47,13 +49,15 @@ public class Game implements Serializable {
         moveHistory = new ArrayList<Square>();
         restart = false;
         socket = new Socket("localhost", 8080);
+        socket.setSoTimeout(5000);
         outStream = new ObjectOutputStream(socket.getOutputStream());
         outStream.flush();
         inStream = new ObjectInputStream(socket.getInputStream());
+        listenerThread = new ServerListenerThread(player.color);
     }
 
     //Parameterized constructor
-    public Game(String serverIP, Board board, Square lastClickedTile, Player player, Player opponent, Boolean playersTurn, ArrayList<Square> moveHistory, Boolean restart) throws Exception{
+    public Game(String serverIP, Board board, Square lastClickedTile, Player player, Player opponent, Boolean playersTurn, ArrayList<Square> moveHistory, Boolean restart, ServerListenerThread listenerThread) throws Exception{
         this.serverIP = serverIP;
         this.board = board;
         this.lastClickedTile = lastClickedTile;
@@ -155,17 +159,18 @@ public class Game implements Serializable {
             ex.printStackTrace();
             System.exit(1);
         }
+        MainForm.mainForm.gamePanel.disableStartGameButton();
+        MainForm.mainForm.gamePanel.displayMessage("");
     }
 
     public void restartGame() throws IOException, ClassNotFoundException {
-        gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
-        gamePlay res = null;
+        gamePlay req = new gamePlay(new Board(), opponent.nickname, opponent.nickname, true);
+        if(player.color == BLACK){
+            this.board = new Board();
+            MainForm.mainForm.gamePanel.repaint();
+        }
         try {
             outStream.writeObject(req);
-            while(res == null) {
-                res = (gamePlay) inStream.readObject();
-            }
-            MainForm.mainForm.displayRestartPanel(res.hasWon);
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay object to restart the game");
             ex.printStackTrace();
@@ -176,15 +181,13 @@ public class Game implements Serializable {
     // TODO: really need startNewGame()
 
     public void quitGame() throws IOException, ClassNotFoundException {
-        gamePlay req = new gamePlay(new Board(), opponent.nickname, "");
-        gamePlay res = null;
+        gamePlay req = new gamePlay(new Board(), opponent.nickname, "", false);
+        if(player.color == BLACK){
+            this.board = new Board().flipBoard();
+            MainForm.mainForm.gamePanel.repaint();
+        }
         try {
             outStream.writeObject(req);
-            while(res == null) {
-                res = (gamePlay) inStream.readObject();
-            }
-            this.socket.close();
-            MainForm.mainForm.displayWinningPanel(res.hasWon);
         } catch(IOException ex) {
             System.out.println("Failed to write gamePlay");
             ex.printStackTrace();
@@ -249,7 +252,7 @@ public class Game implements Serializable {
                 }
                 lastClickedTile = null;
                 MainForm.mainForm.gamePanel.repaint();
-                gamePlay gReq = new gamePlay(this.board, "", opponent.nickname);
+                gamePlay gReq = new gamePlay(this.board, "", opponent.nickname, false);
 
                 try {
                     outStream.writeObject(gReq);

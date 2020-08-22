@@ -4,6 +4,7 @@ import com.se181.clientmodel.PieceColor;
 import com.se181.clientmodel.Player;
 import com.se181.datamodel.*;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -70,26 +71,53 @@ public class ServerThread implements Runnable{
             Object gameplay = null;
             while(true) {
                 if (this.whoTurn.equals(players.get(0).nickname)){
-                    gameplay = fromPlayer1.readObject();
-                    this.whoTurn = players.get(1).nickname;
+                    try {
+                        gameplay = fromPlayer1.readObject();
+                        this.whoTurn = players.get(1).nickname;
+                    } catch (EOFException ex){
+                        System.out.println(players.get(0).nickname + " has disconnected.");
+                        fromPlayer1.close();
+                    }
                 }else{
-                    gameplay = fromPlayer2.readObject();
-                    this.whoTurn = players.get(0).nickname;
+                    try {
+                        gameplay = fromPlayer2.readObject();
+                        this.whoTurn = players.get(0).nickname;
+                    } catch (EOFException ex){
+                        System.out.println(players.get(1).nickname + " has disconnected.");
+                        fromPlayer2.close();
+                    }
                 }
                 if(classifyRequest(gameplay) == 3){
                     gamePlay gRes = (gamePlay)gameplay;
                     System.out.println(gRes.nextTurn);
-                    toPlayer1.writeObject(gRes);
-                    toPlayer1.flush();
-                    toPlayer2.writeObject(gRes);
-                    toPlayer2.flush();
+                    try {
+                        toPlayer1.writeObject(gRes);
+                        toPlayer1.flush();
+                    } catch (Exception ex) {
+                        System.out.println(players.get(0).nickname + " has disconnected.");
+                    }
+                    try {
+                        toPlayer2.writeObject(gRes);
+                        toPlayer2.flush();
+                    } catch (Exception ex) {
+                        System.out.println(players.get(0).nickname + " has disconnected.");
+                    }
                 }else if(classifyRequest(gameplay) == 4){
                     quit qRes = new quit();
                     qRes.setQuit(true);
-                    toPlayer1.writeObject(qRes);
-                    toPlayer1.flush();
-                    toPlayer2.writeObject(qRes);
-                    toPlayer2.flush();
+                    try {
+                        toPlayer1.writeObject(qRes);
+                        toPlayer1.flush();
+                    } catch (Exception ex) {
+                        System.out.println(players.get(0).nickname + " has disconnected.");
+
+                    }
+                    try {
+                        toPlayer2.writeObject(qRes);
+                        toPlayer2.flush();
+                    } catch (Exception ex) {
+                        System.out.println(players.get(0).nickname + " has disconnected.");
+                    }
                     break;
                 }
             }

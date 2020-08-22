@@ -1,6 +1,6 @@
 package com.se181.gui.listeners;
 
-import com.se181.Server.Server;
+import com.se181.clientmodel.Board;
 import com.se181.clientmodel.PieceColor;
 import com.se181.gui.MainForm;
 import com.se181.datamodel.*;
@@ -23,16 +23,12 @@ public class ServerListenerThread implements Runnable {
             while (true) {
                 // My Move
                 MainForm.mainForm.gamePanel.enableAllTileButtons();
+                MainForm.mainForm.gamePanel.enableReStartButton();
+                MainForm.mainForm.gamePanel.enableResignButton();
                 try {
-                    gamePlay res =  MainForm.game.waitForOpponent();
-                    //TODO:
-                    if(!res.hasWon.equals("") && res.hasWon.equals(MainForm.game.opponent.nickname)){
-                        MainForm.mainForm.displayWinningPanel(MainForm.game.opponent.nickname);
-                        System.out.println("inside winning");
-                    }
-                    else if(!res.hasWon.equals("") && res.hasWon.equals(MainForm.game.player.nickname)){
-                        MainForm.mainForm.displayWinningPanel(MainForm.game.player.nickname);
-                        System.out.println("inside losing");
+                    gamePlay res = MainForm.game.waitForOpponent();
+                    if(res.getRestart()){
+                        MainForm.mainForm.gamePanel.displayMessage(res.hasWon + " has won the game. Let's start another one.");
                     }
                 }
                 catch (Exception e) {
@@ -41,9 +37,18 @@ public class ServerListenerThread implements Runnable {
                     System.exit(1);
                 }
                 MainForm.mainForm.gamePanel.disableAllTileButtons();
+                MainForm.mainForm.gamePanel.disableRestartGame();
+                MainForm.mainForm.gamePanel.disableResignButton();
                 // Opponent Move
                 try {
-                    MainForm.game.board = MainForm.game.waitForOpponent().chessBoard.flipBoard();
+                    gamePlay res = MainForm.game.waitForOpponent();
+                    if(!res.getRestart()) {
+                        MainForm.game.board = res.getChessBoard().flipBoard();
+                    }
+                    else {
+                        MainForm.game.board = res.getChessBoard();
+                        MainForm.mainForm.gamePanel.displayMessage(res.hasWon + " has won the game. Let's start another one.");
+                    }
                     if (MainForm.game.kingInCheck(WHITE)) {
                         MainForm.game.kingInCheck = WHITE;
                     }
@@ -51,12 +56,22 @@ public class ServerListenerThread implements Runnable {
                         MainForm.game.kingInCheck = null;
                     }
                     MainForm.mainForm.gamePanel.repaint();
+                    //TODO:
+                    if(res.hasWon.equals(MainForm.game.opponent.nickname) && !res.getRestart()){
+                        MainForm.mainForm.displayWinningPanel(MainForm.game.opponent.nickname);
+                        break;
+                    }
+                    else if(res.hasWon.equals(MainForm.game.player.nickname) && !res.getRestart()){
+                        MainForm.mainForm.displayWinningPanel(MainForm.game.player.nickname);
+                        break;
+                    }
                     if (MainForm.game.hasNoMoves(color)) {
-                        System.out.println("inside checkmate white");
                         // TODO: This is checkmate
-                        gamePlay req = new gamePlay(MainForm.game.board, MainForm.game.opponent.nickname, MainForm.game.opponent.nickname);
+                        gamePlay req = new gamePlay(MainForm.game.board, MainForm.game.opponent.nickname, MainForm.game.opponent.nickname, false);
                         try {
                             MainForm.game.outStream.writeObject(req);
+                            MainForm.mainForm.displayWinningPanel(MainForm.game.opponent.nickname);
+                            break;
                         } catch (IOException ex){
                             System.out.println("Failed to send a gamePlay object when checkmate happens from ServerListenerThread");
                         }
@@ -73,8 +88,14 @@ public class ServerListenerThread implements Runnable {
             while (true) {
                 // Opponent Move
                 MainForm.mainForm.gamePanel.disableAllTileButtons();
+                MainForm.mainForm.gamePanel.disableRestartGame();
+                MainForm.mainForm.gamePanel.disableResignButton();
                 try {
-                    MainForm.game.board = MainForm.game.waitForOpponent().chessBoard.flipBoard();
+                    gamePlay res = MainForm.game.waitForOpponent();
+                    MainForm.game.board = res.getChessBoard().flipBoard();
+                    if(res.getRestart()){
+                        MainForm.mainForm.gamePanel.displayMessage(res.hasWon + " has won the game. Let's start another one.");
+                    }
                     if (MainForm.game.kingInCheck(BLACK)) {
                         MainForm.game.kingInCheck = BLACK;
                     }
@@ -82,12 +103,22 @@ public class ServerListenerThread implements Runnable {
                         MainForm.game.kingInCheck = null;
                     }
                     MainForm.mainForm.gamePanel.repaint();
+                    if(!res.hasWon.equals("") && res.hasWon.equals(MainForm.game.opponent.nickname) && !res.getRestart()){
+                        MainForm.mainForm.displayWinningPanel(MainForm.game.opponent.nickname);
+                        break;
+                    }
+                    else if(!res.hasWon.equals("") && res.hasWon.equals(MainForm.game.player.nickname) && !res.getRestart()){
+                        MainForm.mainForm.displayWinningPanel(MainForm.game.player.nickname);
+                        break;
+                    }
                     if (MainForm.game.hasNoMoves(color)) {
                         // TODO: This is checkmate
                         System.out.println("inside checkmate black");
-                        gamePlay req = new gamePlay(MainForm.game.board, MainForm.game.opponent.nickname, MainForm.game.opponent.nickname);
+                        gamePlay req = new gamePlay(MainForm.game.board, MainForm.game.opponent.nickname, MainForm.game.opponent.nickname, false);
                         try {
                             MainForm.game.outStream.writeObject(req);
+                            MainForm.mainForm.displayWinningPanel(MainForm.game.opponent.nickname);
+                            break;
                         } catch (IOException ex) {
                             System.out.println("Failed to send a gamePlay object when checkmate happens from ServerListenerThread");
                         }
@@ -99,15 +130,15 @@ public class ServerListenerThread implements Runnable {
                     System.exit(1);
                 }
                 MainForm.mainForm.gamePanel.enableAllTileButtons();
+                MainForm.mainForm.gamePanel.enableReStartButton();
+                MainForm.mainForm.gamePanel.enableResignButton();
                 // My Move
                 try {
                     gamePlay res = MainForm.game.waitForOpponent();
-                    //TODO:
-                    if(!res.hasWon.equals("") && res.hasWon.equals(MainForm.game.opponent.nickname)){
-                        MainForm.mainForm.displayWinningPanel(MainForm.game.opponent.nickname);
-                    }
-                    else if(!res.hasWon.equals("") && res.hasWon.equals(MainForm.game.player.nickname)){
-                        MainForm.mainForm.displayWinningPanel(MainForm.game.player.nickname);
+                    if(res.getRestart()){
+                        MainForm.game.board = new Board().flipBoard();
+                        MainForm.mainForm.gamePanel.repaint();
+                        MainForm.mainForm.gamePanel.displayMessage(res.hasWon + " has won the game. Let's start another one.");
                     }
                 }
                 catch (Exception e) {
