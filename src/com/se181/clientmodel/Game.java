@@ -1,10 +1,12 @@
 package com.se181.clientmodel;
 
-import com.se181.datamodel.*;
+import com.se181.datamodel.connectionResponse;
+import com.se181.datamodel.gamePlay;
+import com.se181.datamodel.readyRequest;
+import com.se181.datamodel.readyResponse;
 import com.se181.gui.MainForm;
 import com.se181.gui.listeners.ServerListenerThread;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

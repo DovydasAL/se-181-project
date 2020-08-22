@@ -1,3 +1,5 @@
+package Test;
+
 import com.se181.clientmodel.PieceColor;
 import com.se181.clientmodel.Player;
 import org.junit.jupiter.api.Test;
