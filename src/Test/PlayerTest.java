@@ -8,5 +8,6 @@ public class PlayerTest {
     @Test
     void playertest(){
         Player P1 = new Player(PieceColor.WHITE, "Kanye");
+        Player P = new Player("Kanye");
     }
 }

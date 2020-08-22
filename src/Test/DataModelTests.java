@@ -9,32 +9,30 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class DataModelTests {
 
-    //TODO: Do we need these anymore?
+    @Test
+    void connectionRequestTest() {
+        connectionRequest CR = new connectionRequest();
+    }
 
-//    @Test
-//    void connectionRequestTest(){
-//    //regular constructor
-//    connectionRequest CR = new connectionRequest();
-//    //Parameterized constructor
-//    connectionRequest CRName = new connectionRequest("Johnny");
-//    CRName.getNickName();
-//    //set nickname is not public so cant be tested here
-//    //CR.setNickName("johnny");
-//
-//    }
-//
-//    @Test
-//    void connectionResponseTest(){
-//        //regular constructor
-//        connectionResponse CR = new connectionResponse();
-//       //Parameterized constructor
-//        connectionResponse CRP = new connectionResponse(false);
-//        CRP.getConnected();
-//        CRP.setConnected(true);
-//
-//    }
+    @Test
+    void connectionResponseTest(){
+        //regular constructor
+        connectionResponse CR = new connectionResponse();
+        //Parameterized constructor
+        connectionResponse CRP = new connectionResponse(false);
+        CRP.getConnected();
+        CRP.setConnected(true);
+        CRP.getHasTwo();
+        CRP.setHasTwo(true);
+        assertEquals(CRP.getHasTwo(),true);
+
+
+    }
+
 
 
     @Test
@@ -72,6 +70,8 @@ public class DataModelTests {
         readyRequest RQ = new readyRequest();
         //Parameterized constructor
         readyRequest RQP = new readyRequest(true, "");
+        RQP.setNickName("Kanye");
+        RQP.getNickName();
         RQP.getReady();
         //set ready is private will need to make public to test here
         //RQP.setReady(true);
