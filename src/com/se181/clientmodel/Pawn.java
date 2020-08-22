@@ -58,16 +58,20 @@ public class Pawn extends ChessPiece implements Serializable {
         // Check for capture on top left
         Square topLeft = new Square(this.position.row + 1, this.position.col - 1);
         PieceColor hasPieceTopLeft = board.containsPieceAt(topLeft);
-//        if (hasPieceTopLeft == MainForm.game.opponent.color) {
-//            validMoves.add(topLeft);
-//        }
+        validMoves.add(topLeft);
+
+        if (hasPieceTopLeft == MainForm.game.opponent.color) {
+            validMoves.add(topLeft);
+        }
 
         // Check for capture top right
         Square topRight = new Square(this.position.row + 1, this.position.col + 1);
         PieceColor hasPieceTopRight = board.containsPieceAt(topRight);
-//        if (hasPieceTopRight == MainForm.game.opponent.color) {
-//            validMoves.add(topRight);
-//        }
+        validMoves.add(topRight);
+
+        if (hasPieceTopRight == MainForm.game.opponent.color) {
+            validMoves.add(topRight);
+        }
 
         return validMoves;
     }

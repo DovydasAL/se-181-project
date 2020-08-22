@@ -46,10 +46,12 @@ public class Board implements Serializable {
         for (int i=0;i<flippedBoard.whiteSet.pieces.size();i++) {
             ChessPiece piece = flippedBoard.whiteSet.pieces.get(i);
             piece.position.row = (piece.position.row >= 4) ? 4 - piece.position.row + 3 : 7 - piece.position.row;
+            piece.position.col = 7 - piece.position.col;
         }
         for (int i=0;i<flippedBoard.blackSet.pieces.size();i++) {
             ChessPiece piece = flippedBoard.blackSet.pieces.get(i);
             piece.position.row = (piece.position.row >= 4) ? 4 - piece.position.row + 3 : 7 - piece.position.row;
+            piece.position.col = 7 - piece.position.col;
         }
         return flippedBoard;
     }
