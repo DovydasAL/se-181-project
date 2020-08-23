@@ -102,23 +102,19 @@ public class ServerThread implements Runnable{
                     } catch (Exception ex) {
                         System.out.println(players.get(0).nickname + " has disconnected.");
                     }
-                }else if(classifyRequest(gameplay) == 4){
-                    quit qRes = new quit();
-                    qRes.setQuit(true);
-                    try {
-                        toPlayer1.writeObject(qRes);
+                    if(!gRes.restart && gRes.nextTurn.equals("")){
+                        toPlayer1.writeObject(gRes);
                         toPlayer1.flush();
-                    } catch (Exception ex) {
-                        System.out.println(players.get(0).nickname + " has disconnected.");
-
-                    }
-                    try {
-                        toPlayer2.writeObject(qRes);
+                        toPlayer2.writeObject(gRes);
                         toPlayer2.flush();
-                    } catch (Exception ex) {
-                        System.out.println(players.get(0).nickname + " has disconnected.");
+                        Player1.close();
+                        Player2.close();
+                        fromPlayer1.close();
+                        fromPlayer2.close();
+                        toPlayer1.close();
+                        toPlayer2.close();
+                        break;
                     }
-                    break;
                 }
             }
         } catch (IOException ex) {

@@ -15,7 +15,5 @@ public class ServerTest {
     @Test
     void MainFormTest(){
         MainForm M = new MainForm("chessTest");
-
-
     }
 }
