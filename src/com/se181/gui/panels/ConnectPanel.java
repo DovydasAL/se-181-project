@@ -7,15 +7,15 @@ import java.awt.*;
 
 public class ConnectPanel extends JPanel {
 
-    public static final Dimension initialDimensions = new Dimension(400, 150);
+    public static final Dimension initialDimensions = new Dimension(500, 150);
 
     private GridBagConstraints constraints;
     private JLabel titleLabel;
     private JLabel nickNameLabel;
-    private JTextArea nickNameArea;
-    private JTextArea serverIPArea;
+    public JTextArea nickNameArea;
+    public JTextArea serverIPArea;
     private JButton connectButton;
-    private JLabel notificationLabel;
+    public JLabel notificationLabel;
 
     public ConnectPanel() {
         super();
@@ -27,10 +27,12 @@ public class ConnectPanel extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridy = 0;
+        constraints.gridwidth = 2;
         titleLabel = new JLabel("Welcome to ChessOnAir");
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 24));
         this.add(titleLabel, constraints);
 
+        constraints.gridwidth = 1;
         constraints.gridx = 0;
         constraints.gridy = 1;
         nickNameLabel = new JLabel("Enter your nickname:");
@@ -62,11 +64,18 @@ public class ConnectPanel extends JPanel {
         this.add(connectButton, constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 3;
+        constraints.gridy = 5;
         notificationLabel = new JLabel();
         notificationLabel.setForeground(Color.RED);
         this.add(notificationLabel, constraints);
 
     }
 
+    public void displayErrorMessage(String message) {
+        notificationLabel.setText("<html>" + message + "</html>");
+    }
+
+    public String getPlayerNickName() {
+        return this.nickNameArea.getText();
+    }
 }

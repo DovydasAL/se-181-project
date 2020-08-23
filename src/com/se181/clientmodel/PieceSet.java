@@ -59,24 +59,28 @@ public class PieceSet implements Serializable {
         for (int i=0;i<this.pieces.size();i++) {
             Object piece = (Object) pieces.get(i);
             ChessPiece chessPiece = pieces.get(i);
+            ChessPiece newPiece = null;
             if (piece.getClass() == Pawn.class) {
-                newPieces.add(new Pawn(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+                newPiece = new Pawn(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col));
             }
             else if (piece.getClass() == Rook.class) {
-                newPieces.add(new Rook(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+                newPiece = new Rook(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col));
             }
             else if (piece.getClass() == Knight.class) {
-                newPieces.add(new Knight(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+                newPiece = new Knight(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col));
             }
             else if (piece.getClass() == Bishop.class) {
-                newPieces.add(new Bishop(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+                newPiece = new Bishop(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col));
             }
             else if (piece.getClass() == King.class) {
-                newPieces.add(new King(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+                newPiece = new King(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col));
             }
             else if (piece.getClass() == Queen.class) {
-                newPieces.add(new Queen(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col)));
+                newPiece = new Queen(chessPiece.color, new Square(chessPiece.position.row, chessPiece.position.col));
             }
+            newPiece.Captured = chessPiece.Captured;
+            newPiece.hasMoved = chessPiece.hasMoved;
+            newPieces.add(newPiece);
         }
         set.pieces = newPieces;
         return set;

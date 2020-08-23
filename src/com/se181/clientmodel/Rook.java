@@ -19,7 +19,7 @@ public class Rook extends ChessPiece implements Serializable {
         // Check above rook
         for (int i=this.position.row-1;i>=0;i--) {
             Square movePosition = new Square(i, this.position.col);
-            boolean shouldContinue = handlePosition(movePosition, validMoves, board);
+            boolean shouldContinue = handlePosition(movePosition, validMoves, board, this.color);
             if (!shouldContinue)
                 break;
         }
@@ -27,21 +27,21 @@ public class Rook extends ChessPiece implements Serializable {
         // Check below rook
         for (int i=this.position.row+1;i<8;i++) {
             Square movePosition = new Square(i, this.position.col);
-            boolean shouldContinue = handlePosition(movePosition, validMoves, board);
+            boolean shouldContinue = handlePosition(movePosition, validMoves, board, this.color);
             if (!shouldContinue)
                 break;
         }
 
         for (int i=this.position.col-1;i>=0;i--) {
             Square movePosition = new Square(this.position.row, i);
-            boolean shouldContinue = handlePosition(movePosition, validMoves, board);
+            boolean shouldContinue = handlePosition(movePosition, validMoves, board, this.color);
             if (!shouldContinue)
                 break;
         }
 
         for (int i=this.position.col+1;i<8;i++) {
             Square movePosition = new Square(this.position.row, i);
-            boolean shouldContinue = handlePosition(movePosition, validMoves, board);
+            boolean shouldContinue = handlePosition(movePosition, validMoves, board, this.color);
             if (!shouldContinue)
                 break;
         }

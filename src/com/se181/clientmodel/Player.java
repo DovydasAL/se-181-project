@@ -12,5 +12,8 @@ public class Player implements Serializable {
         this.color = color;
         this.nickname = nickname;
     }
+    public Player(String nickname) {
+        this.nickname = nickname;
+    }
 
 }

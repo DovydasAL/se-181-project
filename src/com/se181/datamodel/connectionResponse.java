@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class connectionResponse implements Serializable {
 
-    public Boolean isConnected;
+    private Boolean isConnected;
+    private Boolean hasTwo;
     private static long serialVersionUID = 1L;
 
 
@@ -12,11 +13,13 @@ public class connectionResponse implements Serializable {
     //Default constructor
     public connectionResponse(){
         isConnected = false;
+        hasTwo = false;
     }
 
     //Parameterized constructor
     public connectionResponse(Boolean isConnected){
         this.isConnected = isConnected;
+        hasTwo = false;
     }
 
     public Boolean getConnected() {
@@ -25,5 +28,13 @@ public class connectionResponse implements Serializable {
 
     public void setConnected(Boolean connected) {
         isConnected = connected;
+    }
+
+    public Boolean getHasTwo() {
+        return hasTwo;
+    }
+
+    public void setHasTwo(Boolean hasTwo) {
+        this.hasTwo = hasTwo;
     }
 }
