@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataModelTests {
 
-    @Test
-    void connectionRequestTest() {
-        connectionRequest CR = new connectionRequest();
-    }
+//    @Test
+//    void connectionRequestTest() {
+//        connectionRequest CR = new connectionRequest();
+//    }
 
     @Test
     void connectionResponseTest(){
@@ -57,14 +57,14 @@ public class DataModelTests {
 
 
     }
-    @Test
-    void quitTest(){
-        //Extends GamePlay
-        quit Q = new quit();
-        Q.isQuit();
-        Q.setQuit(true);
-
-    }
+//    @Test
+//    void quitTest(){
+//        //Extends GamePlay
+//        quit Q = new quit();
+//        Q.isQuit();
+//        Q.setQuit(true);
+//
+//    }
     @Test
     void readyRequestTest(){
         readyRequest RQ = new readyRequest();

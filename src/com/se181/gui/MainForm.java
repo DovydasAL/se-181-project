@@ -23,7 +23,7 @@ public class MainForm extends JFrame {
     }
 
     public static void main(String[] args) {
-        mainForm = new MainForm("ChessOnAir");
+        mainForm = new MainForm("ChessOnAir v1.1");
         mainForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainForm.setResizable(false);
         mainForm.setPreferredSize(ConnectPanel.initialDimensions);

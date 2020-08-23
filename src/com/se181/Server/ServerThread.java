@@ -32,9 +32,9 @@ public class ServerThread implements Runnable{
 
     protected int classifyRequest(Object request){
         int classify = 0;
-        if (request.getClass() == connectionRequest.class){
-            classify = 1;
-        }else if(request.getClass() == readyRequest.class){
+//        if (request.getClass() == connectionRequest.class){
+//            classify = 1;
+        if(request.getClass() == readyRequest.class){
             classify = 2;
         }else if(request.getClass() == gamePlay.class){
             classify  = 3;
